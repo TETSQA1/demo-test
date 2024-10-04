@@ -1,0 +1,915 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.1 (Python 3.12.5 on win32)" generated="2024-10-04T13:38:49.398480" rpa="false" schemaversion="5">
+<suite id="s1" name="Return Flow" source="D:\API test return\tests\Backend\Recipient_suite\return_flow.robot">
+<test id="s1-t1" name="Verify the recipient can return the parcels successfully" line="10">
+<kw name="Login As Driver" owner="auth">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2024-10-04T13:38:49.815192" level="INFO" html="true">Directory '&lt;a href="file://D:\API test return\tests\Backend\Recipient_suite\Content-Type=application\json"&gt;D:\API test return\tests\Backend\Recipient_suite\Content-Type=application\json&lt;/a&gt;' already exists.</msg>
+<msg time="2024-10-04T13:38:49.817159" level="INFO">${headers} = None</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2024-10-04T13:38:49.815192" elapsed="0.001967"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-10-04T13:38:49.818156" level="INFO">${data} = {'phone': '+34-254789686'}</msg>
+<var>${data}</var>
+<arg>phone=${driver_phone_number}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-10-04T13:38:49.818156" elapsed="0.000000"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-10-04T13:38:50.725438" level="INFO">POST Request : url=https://api.test.kanguro.com/api/v1/deliveryDriver/auth/login-first-step 
+ path_url=/api/v1/deliveryDriver/auth/login-first-step 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '26', 'Content-Type': 'application/json'} 
+ body=b'{"phone": "+34-254789686"}' 
+ </msg>
+<msg time="2024-10-04T13:38:50.725438" level="INFO">POST Response : url=https://api.test.kanguro.com/api/v1/deliveryDriver/auth/login-first-step 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 04 Oct 2024 08:08:49 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '52', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'ETag': 'W/"34-tZBd5zjtQREzAYYOkpaHsieYA+c"'} 
+ body={"requestId":"6d63e1ef-786b-42dd-9afc-90ec95cacf6d"} 
+ </msg>
+<msg time="2024-10-04T13:38:50.725438" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>${base_URL}${driver_login_first_step}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>json=${data}</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2024-10-04T13:38:49.818156" elapsed="0.907282"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2024-10-04T13:38:50.726468" level="INFO">${response_json} = {'requestId': '6d63e1ef-786b-42dd-9afc-90ec95cacf6d'}</msg>
+<var>${response_json}</var>
+<arg>json.loads($response.content)</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2024-10-04T13:38:50.726468" elapsed="0.000000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-04T13:38:50.727468" level="INFO">Response Body: {"requestId":"6d63e1ef-786b-42dd-9afc-90ec95cacf6d"}</msg>
+<arg>Response Body: ${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-04T13:38:50.726468" elapsed="0.001000"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<msg time="2024-10-04T13:38:50.728463" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2024-10-04T13:38:50.727468" elapsed="0.000995"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2024-10-04T13:38:50.728463" level="INFO">${response_dict} = {'requestId': '6d63e1ef-786b-42dd-9afc-90ec95cacf6d'}</msg>
+<var>${response_dict}</var>
+<arg>json.loads($response.content)</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2024-10-04T13:38:50.728463" elapsed="0.000000"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2024-10-04T13:38:50.729461" level="INFO">${requestId} = 6d63e1ef-786b-42dd-9afc-90ec95cacf6d</msg>
+<var>${requestId}</var>
+<arg>${response_dict}</arg>
+<arg>requestId</arg>
+<arg>default=None</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2024-10-04T13:38:50.728463" elapsed="0.000998"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-04T13:38:50.729461" level="INFO">requestId: 6d63e1ef-786b-42dd-9afc-90ec95cacf6d</msg>
+<arg>requestId: ${requestId}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-04T13:38:50.729461" elapsed="0.000000"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<msg time="2024-10-04T13:38:50.730716" level="INFO">Length is 36.</msg>
+<arg>${requestId}</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="PASS" start="2024-10-04T13:38:50.730430" elapsed="0.000286"/>
+</kw>
+<return>
+<value>${requestId}</value>
+<status status="PASS" start="2024-10-04T13:38:50.730716" elapsed="0.000000"/>
+</return>
+<msg time="2024-10-04T13:38:50.730716" level="INFO">${requestId_driver} = 6d63e1ef-786b-42dd-9afc-90ec95cacf6d</msg>
+<var>${requestId_driver}</var>
+<arg>${driver_phone_number}</arg>
+<status status="PASS" start="2024-10-04T13:38:49.814166" elapsed="0.916550"/>
+</kw>
+<kw name="Login As Driver Second Step" owner="auth">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-10-04T13:38:50.731714" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-10-04T13:38:50.731714" elapsed="0.000000"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-10-04T13:38:50.732711" level="INFO">${data} = {'requestId': '6d63e1ef-786b-42dd-9afc-90ec95cacf6d', 'verificationCode': '1234'}</msg>
+<var>${data}</var>
+<arg>requestId=${requestId}</arg>
+<arg>verificationCode=${verificationCode}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-10-04T13:38:50.731714" elapsed="0.000997"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-10-04T13:38:51.663385" level="INFO">POST Request : url=https://api.test.kanguro.com/api/v1/deliveryDriver/auth/login-second-step 
+ path_url=/api/v1/deliveryDriver/auth/login-second-step 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '81'} 
+ body=b'{"requestId": "6d63e1ef-786b-42dd-9afc-90ec95cacf6d", "verificationCode": "1234"}' 
+ </msg>
+<msg time="2024-10-04T13:38:51.664413" level="INFO">POST Response : url=https://api.test.kanguro.com/api/v1/deliveryDriver/auth/login-second-step 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 04 Oct 2024 08:08:49 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '1228', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'ETag': 'W/"4cc-Xld3AsgC3d8Ru/uVWWp6Xk8cix4"'} 
+ body={"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC0yNTQ3ODk2ODYiLCJzdWIiOiIwMGNjOTA4ZS01OTEwLTRlYTgtYTYwYi1mNDhlYTNlOWMxZDkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MjgwMjkzMjksImV4cCI6MTcyODExNTcyOX0.5BtguupNKFIOoReICza-BWaGUlcjaUlMu4OEDhWu21g","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC0yNTQ3ODk2ODYiLCJzdWIiOiIwMGNjOTA4ZS01OTEwLTRlYTgtYTYwYi1mNDhlYTNlOWMxZDkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MjgwMjkzMjksImV4cCI6MTczMDYyMTMyOX0.9Tw_gE7Znkulv2WkU2esK2e-2il41YlaYOtKgYgCQnE","deliveryDriver":{"id":"00cc908e-5910-4ea8-a60b-f48ea3e9c1d9","role":"admin","profile":{"id":"2740bd22-fefb-4957-8087-a61d97090397","multipleCounters":false,"name":"Nicolas","dni":"99999999R","signature":null,"signaturePointsProvided":false,"email":"nicolas@gmail.com","phone":"+34-254789686","imageUrl":"https://test-kanguro-api-public-assets.s3.amazonaws.com/profile/e87c669c82861016111074c7441243ee8e.jpg"},"courier":{"id":"c64c9f66-5c0d-4d09-b3a1-6efea8dc6d21","name":"DHL Courier","logo":"company logo","cif":"1236547","phone":"+34-4569878596","carrierId":null,"carrier":null,"isQrReturn":true,"deliveryDriver":null,"maxPinTriesCount":3,"isRecipientMandatoryInReturnFlow":false,"isQrCollect":true}}} 
+ </msg>
+<msg time="2024-10-04T13:38:51.664413" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>${base_URL}${driver_login_second_step}</arg>
+<arg>headers=${headers}</arg>
+<arg>json=${data}</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2024-10-04T13:38:50.732711" elapsed="0.932705"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2024-10-04T13:38:51.666407" level="INFO">${response_json} = {'accessToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC0yNTQ3ODk2ODYiLCJzdWIiOiIwMGNjOTA4ZS01OTEwLTRlYTgtYTYwYi1mNDhlYTNlOWMxZDkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MjgwMjkzMjksImV4cC...</msg>
+<var>${response_json}</var>
+<arg>json.loads($response.content)</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2024-10-04T13:38:51.665416" elapsed="0.001998"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-04T13:38:51.669400" level="INFO">Response Body: {"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC0yNTQ3ODk2ODYiLCJzdWIiOiIwMGNjOTA4ZS01OTEwLTRlYTgtYTYwYi1mNDhlYTNlOWMxZDkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MjgwMjkzMjksImV4cCI6MTcyODExNTcyOX0.5BtguupNKFIOoReICza-BWaGUlcjaUlMu4OEDhWu21g","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC0yNTQ3ODk2ODYiLCJzdWIiOiIwMGNjOTA4ZS01OTEwLTRlYTgtYTYwYi1mNDhlYTNlOWMxZDkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MjgwMjkzMjksImV4cCI6MTczMDYyMTMyOX0.9Tw_gE7Znkulv2WkU2esK2e-2il41YlaYOtKgYgCQnE","deliveryDriver":{"id":"00cc908e-5910-4ea8-a60b-f48ea3e9c1d9","role":"admin","profile":{"id":"2740bd22-fefb-4957-8087-a61d97090397","multipleCounters":false,"name":"Nicolas","dni":"99999999R","signature":null,"signaturePointsProvided":false,"email":"nicolas@gmail.com","phone":"+34-254789686","imageUrl":"https://test-kanguro-api-public-assets.s3.amazonaws.com/profile/e87c669c82861016111074c7441243ee8e.jpg"},"courier":{"id":"c64c9f66-5c0d-4d09-b3a1-6efea8dc6d21","name":"DHL Courier","logo":"company logo","cif":"1236547","phone":"+34-4569878596","carrierId":null,"carrier":null,"isQrReturn":true,"deliveryDriver":null,"maxPinTriesCount":3,"isRecipientMandatoryInReturnFlow":false,"isQrCollect":true}}}</msg>
+<arg>Response Body: ${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-04T13:38:51.667414" elapsed="0.001986"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<msg time="2024-10-04T13:38:51.669400" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2024-10-04T13:38:51.669400" elapsed="0.000000"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2024-10-04T13:38:51.670591" level="INFO">${response_dict} = {'accessToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC0yNTQ3ODk2ODYiLCJzdWIiOiIwMGNjOTA4ZS01OTEwLTRlYTgtYTYwYi1mNDhlYTNlOWMxZDkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MjgwMjkzMjksImV4cC...</msg>
+<var>${response_dict}</var>
+<arg>json.loads($response.content)</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2024-10-04T13:38:51.670591" elapsed="0.000000"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2024-10-04T13:38:51.670591" level="INFO">${accessToken} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC0yNTQ3ODk2ODYiLCJzdWIiOiIwMGNjOTA4ZS01OTEwLTRlYTgtYTYwYi1mNDhlYTNlOWMxZDkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MjgwMjkzMjksImV4cCI6MTcyODExNTcyOX0...</msg>
+<var>${accessToken}</var>
+<arg>${response_dict}</arg>
+<arg>accessToken</arg>
+<arg>default=None</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2024-10-04T13:38:51.670591" elapsed="0.001025"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-10-04T13:38:51.671616" level="INFO">${driver_token} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC0yNTQ3ODk2ODYiLCJzdWIiOiIwMGNjOTA4ZS01OTEwLTRlYTgtYTYwYi1mNDhlYTNlOWMxZDkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MjgwMjkzMjksImV4cCI6MTcyODEx...</msg>
+<var>${driver_token}</var>
+<arg>Bearer ${accessToken}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-10-04T13:38:51.671616" elapsed="0.000000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-04T13:38:51.671616" level="INFO">accessToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC0yNTQ3ODk2ODYiLCJzdWIiOiIwMGNjOTA4ZS01OTEwLTRlYTgtYTYwYi1mNDhlYTNlOWMxZDkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MjgwMjkzMjksImV4cCI6MTcyODExNTcyOX0.5BtguupNKFIOoReICza-BWaGUlcjaUlMu4OEDhWu21g</msg>
+<arg>accessToken: ${accessToken}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-04T13:38:51.671616" elapsed="0.000000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-04T13:38:51.672614" level="INFO">driver_token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC0yNTQ3ODk2ODYiLCJzdWIiOiIwMGNjOTA4ZS01OTEwLTRlYTgtYTYwYi1mNDhlYTNlOWMxZDkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MjgwMjkzMjksImV4cCI6MTcyODExNTcyOX0.5BtguupNKFIOoReICza-BWaGUlcjaUlMu4OEDhWu21g</msg>
+<arg>driver_token: ${driver_token}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-04T13:38:51.671616" elapsed="0.000998"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<msg time="2024-10-04T13:38:51.672614" level="INFO">Length is 244.</msg>
+<arg>${accessToken}</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="PASS" start="2024-10-04T13:38:51.672614" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${driver_token}</value>
+<status status="PASS" start="2024-10-04T13:38:51.672614" elapsed="0.000000"/>
+</return>
+<msg time="2024-10-04T13:38:51.672614" level="INFO">${driver_token} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC0yNTQ3ODk2ODYiLCJzdWIiOiIwMGNjOTA4ZS01OTEwLTRlYTgtYTYwYi1mNDhlYTNlOWMxZDkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MjgwMjkzMjksImV4cCI6MTcyODEx...</msg>
+<var>${driver_token}</var>
+<arg>${requestId_driver}</arg>
+<arg>${First_driver_otp}</arg>
+<status status="PASS" start="2024-10-04T13:38:50.730716" elapsed="0.941898"/>
+</kw>
+<kw name="Create a return parcel" owner="recipient">
+<kw name="Generate Random EAN" owner="auth">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-10-04T13:38:51.673610" level="INFO">${prefix} = 599</msg>
+<var>${prefix}</var>
+<arg>599</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-10-04T13:38:51.673610" elapsed="0.000000"/>
+</kw>
+<kw name="Generate Random String" owner="String">
+<msg time="2024-10-04T13:38:51.674608" level="INFO">${random_digits} = 285723312</msg>
+<var>${random_digits}</var>
+<arg>9</arg>
+<arg>0123456789</arg>
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<status status="PASS" start="2024-10-04T13:38:51.673610" elapsed="0.000998"/>
+</kw>
+<kw name="Catenate" owner="BuiltIn">
+<msg time="2024-10-04T13:38:51.674608" level="INFO">${ean} = 599285723312</msg>
+<var>${ean}</var>
+<arg>SEPARATOR=</arg>
+<arg>${prefix}</arg>
+<arg>${random_digits}</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<status status="PASS" start="2024-10-04T13:38:51.674608" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${ean}</value>
+<status status="PASS" start="2024-10-04T13:38:51.674608" elapsed="0.000000"/>
+</return>
+<msg time="2024-10-04T13:38:51.674608" level="INFO">${new_ean} = 599285723312</msg>
+<var>${new_ean}</var>
+<status status="PASS" start="2024-10-04T13:38:51.673610" elapsed="0.000998"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-10-04T13:38:51.675605" level="INFO">${headers} = {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC0yNTQ3ODk2ODYiLCJzdWIiOiIwMGNjOTA4ZS01OTEwLTRlYTgtYTYwYi1mNDhlYTNlOWMxZDkiLCJyb...</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=${driver_token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-10-04T13:38:51.674608" elapsed="0.000997"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-10-04T13:38:51.676575" level="INFO">${parcel_data} = {'EAN': '599285723312', 'pin': '123456', 'originalAddress': 'Spain', 'attachments': '[]', 'monies': '[]', 'adultSignatureRequired': 'True', 'recipientOnlyRequired': 'True', 'commercialInvoiceRequired'...</msg>
+<var>${parcel_data}</var>
+<arg>EAN=${new_ean}</arg>
+<arg>pin=${pin}</arg>
+<arg>originalAddress=${originalAddress}</arg>
+<arg>attachments=${attachments}</arg>
+<arg>monies=${monies}</arg>
+<arg>adultSignatureRequired=${adultSignatureRequired}</arg>
+<arg>recipientOnlyRequired=${recipientOnlyRequired}</arg>
+<arg>commercialInvoiceRequired=${commercialInvoiceRequired}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-10-04T13:38:51.675605" elapsed="0.000970"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-10-04T13:38:51.676575" level="INFO">${data} = {'recipientId': '9ab63823-bfb1-4abb-9cac-22b5db186a46', 'recipientPhone': '+34-636638194', 'recipientEmail': 'temp@gmail.com', 'recipientName': 'Helen', 'kanguroPointId': '0e9d1fbe-19ba-4d58-868b-ff47...</msg>
+<var>${data}</var>
+<arg>recipientId=${recipient_existing_id}</arg>
+<arg>recipientPhone=${recipient_existing_phone_number}</arg>
+<arg>recipientEmail=${recipient_email_existing}</arg>
+<arg>recipientName=${recipient_existing_name}</arg>
+<arg>kanguroPointId=${kanguroPointId}</arg>
+<arg>status=created-recipient</arg>
+<arg>parcel=${parcel_data}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-10-04T13:38:51.676575" elapsed="0.000000"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-10-04T13:38:52.594691" level="INFO">POST Request : url=https://api.test.kanguro.com/api/v1/deliveryDriver/parcels 
+ path_url=/api/v1/deliveryDriver/parcels 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC0yNTQ3ODk2ODYiLCJzdWIiOiIwMGNjOTA4ZS01OTEwLTRlYTgtYTYwYi1mNDhlYTNlOWMxZDkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MjgwMjkzMjksImV4cCI6MTcyODExNTcyOX0.5BtguupNKFIOoReICza-BWaGUlcjaUlMu4OEDhWu21g', 'Content-Length': '463'} 
+ body=b'{"recipientId": "9ab63823-bfb1-4abb-9cac-22b5db186a46", "recipientPhone": "+34-636638194", "recipientEmail": "temp@gmail.com", "recipientName": "Helen", "kanguroPointId": "0e9d1fbe-19ba-4d58-868b-ff4728327a72", "status": "created-recipient", "parcel": {"EAN": "599285723312", "pin": "123456", "originalAddress": "Spain", "attachments": "[]", "monies": "[]", "adultSignatureRequired": "True", "recipientOnlyRequired": "True", "commercialInvoiceRequired": "False"}}' 
+ </msg>
+<msg time="2024-10-04T13:38:52.595688" level="INFO">POST Response : url=https://api.test.kanguro.com/api/v1/deliveryDriver/parcels 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 04 Oct 2024 08:08:50 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '5147', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'ETag': 'W/"141b-oFTnYI6M8msoWY0TAzyJVqLfczY"'} 
+ body={"id":"2958454f-e0da-4a01-b65e-cb751ef5b0d4","counterId":"705f10b8-b754-4a59-be26-2c83261a096c","originalAddress":"Spain","status":"created-recipient","createdAt":"2024-10-04T08:08:50.771Z","updatedAt":"2024-10-04T08:08:50.771Z","expireTimestamp":null,"EAN":"599285723312","pinRequired":false,"adultSignatureRequired":false,"recipientOnlyRequired":false,"commercialInvoiceRequired":false,"pinTriesCount":0,"attachments":[],"monies":[],"deliveryDriver":{"id":"00cc908e-5910-4ea8-a60b-f48ea3e9c1d9","role":"admin","profile":{"id":"2740bd22-fefb-4957-8087-a61d97090397","multipleCounters":false,"name":"Nicolas","dni":"99999999R","signature":null,"signaturePointsProvided":false,"email":"nicolas@gmail.com","phone":"+34-254789686","imageUrl":"https://test-kanguro-api-public-assets.s3.amazonaws.com/profile/e87c669c82861016111074c7441243ee8e.jpg"},"courier":{"id":"c64c9f66-5c0d-4d09-b3a1-6efea8dc6d21","name":"DHL Courier","logo":"company logo","cif":"1236547","phone":"+34-4569878596","carrierId":null,"carrier":null,"isQrReturn":true,"deliveryDriver":null,"maxPinTriesCount":3,"isRecipientMandatoryInReturnFlow":false,"isQrCollect":true}},"courier":{"id":"c64c9f66-5c0d-4d09-b3a1-6efea8dc6d21","name":"DHL Courier","logo":"company logo","cif":"1236547","phone":"+34-4569878596","carrierId":null,"carrier":null,"isQrReturn":true,"deliveryDriver":{"id":"00cc908e-5910-4ea8-a60b-f48ea3e9c1d9","role":"admin","profile":{"id":"2740bd22-fefb-4957-8087-a61d97090397","multipleCounters":false,"name":"Nicolas","dni":"99999999R","signature":null,"signaturePointsProvided":false,"email":"nicolas@gmail.com","phone":"+34-254789686","imageUrl":"https://test-kanguro-api-public-assets.s3.amazonaws.com/profile/e87c669c82861016111074c7441243ee8e.jpg"},"courier":null},"maxPinTriesCount":3,"isRecipientMandatoryInReturnFlow":false,"isQrCollect":true},"kanguroPoint":{"id":"0e9d1fbe-19ba-4d58-868b-ff4728327a72","cid":null,"addressComponents":{"postalCode":"08006","province":"Barcelona ","direction":"C/ de Pàdua, 77, Sarrià-Sant Gervasi, ","city":"Spain"},"address":"C/ de Pàdua, 77, Sarrià-Sant Gervasi, , Spain 08006, Barcelona ","longitude":2.145343786908928,"latitude":41.40519413303176,"countryId":"ES","timeZone":"Europe/Madrid","code":"j9Q3zAGY","isPrivate":false,"distance":null,"distanceObject":null,"parcelsCount":null,"deliverParcelsCount":null,"collectParcelsCount":null,"attachments":[{"id":"0846b6c3-3fd2-4578-a717-2f916b6ded8c","type":"type001111","url":"url001111"},{"id":"18b95781-0c05-4cd0-ab23-9f831f16c4af","type":"OTHER","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/9b7105a4eea7f1d561ff6c5c72ef107b82.csv"},{"id":"1cb41322-6cb6-404a-adae-36145c82c790","type":"MAIN","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/69cafb300610e1287d610d3a9c86ac19f7.jpg"},{"id":"20c4586b-23d0-4a0d-9954-598e85b815a8","type":"gallery","url":"url122"},{"id":"24ff98b6-e03b-454a-a948-c0c16dfab8d4","type":"IMAGE","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/fd4a856f10f91cf3dbd744870bbda13f8.png"},{"id":"37ba779d-4766-4294-9363-abb91549bb96","type":"IMAGE","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/49fe6c69f7a4a2ce53879f95d07f6d54.jpg"},{"id":"55e9bc5f-ffe9-4f2d-a61d-19151d1359f9","type":"gallery","url":"url111"},{"id":"a0757f1a-8faf-4e7d-98e7-ad7792bbfb49","type":"type0021111","url":"url002111"}],"counter":{"id":"705f10b8-b754-4a59-be26-2c83261a096c","status":"active","name":"Zudio counter","phone":"+34-455879658","email":"zudio@hf.com","serialNumber":"00000043","upsAccessPointId":null,"schedule":[{"id":"8aaaecf5-496c-40bf-b2f1-bc61294435d3","open":"09:00","close":"12:00","dayOfWeek":0,"interval":0,"isHoliday":false},{"id":"23a5fc07-17e6-483a-820b-d4dd8ccf0e72","open":"13:00","close":"19:00","dayOfWeek":0,"interval":1,"isHoliday":false},{"id":"0c901c05-e6ca-47b3-bb0f-ba437db95afe","open":"10:00","close":"18:00","dayOfWeek":1,"interval":0,"isHoliday":false},{"id":"26d9bf00-9476-4d3f-be7e-243be108f31a","open":"10:00","close":"18:00","dayOfWeek":2,"interval":0,"isHoliday":false},{"id":"74b9b39b-2c41-452f-92f3-561013e3cf2a","open":"10:00","close":"18:00","dayOfWeek":3,"interval":0,"isHoliday":false},{"id":"0226a8a5-b686-46ca-aefa-bfd4e90ddbf1","open":"10:00","close":"18:00","dayOfWeek":4,"interval":0,"isHoliday":false}],"kanguroPoint":null,"profile":{"id":"37c6dc7c-5735-40a7-83a7-02db2c1f8e25","multipleCounters":false,"name":"Javier ","dni":"12345","signature":null,"signaturePointsProvided":false,"email":"javier@kt.com","phone":"+34-455879658","imageUrl":"https://www.kanguro.com/images/logo.png"}},"containsUpsParcels":false},"sender":null,"recipient":{"id":"9ab63823-bfb1-4abb-9cac-22b5db186a46","profile":{"id":"f8c6485d-bf21-4fef-bf72-9e1498177c37","multipleCounters":false,"name":"Helen","dni":"33333333R","signature":"signature/1066cb234387a10483d710b81410f6bb5ee5.jpg","signaturePointsProvided":true,"email":"temp@gmail.com","phone":"+34-636638194","imageUrl":"https://test-kanguro-api-public-assets.s3.amazonaws.com/profile/302c6cfd3d84a5832dd86a531c2106467"},"kanguroPoints":[]},"statusChanges":[]} 
+ </msg>
+<msg time="2024-10-04T13:38:52.596689" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>${base_URL}${create_parcel}</arg>
+<arg>headers=${headers}</arg>
+<arg>json=${data}</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2024-10-04T13:38:51.677600" elapsed="0.919089"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2024-10-04T13:38:52.598680" level="INFO">${response_json} = {'id': '2958454f-e0da-4a01-b65e-cb751ef5b0d4', 'counterId': '705f10b8-b754-4a59-be26-2c83261a096c', 'originalAddress': 'Spain', 'status': 'created-recipient', 'createdAt': '2024-10-04T08:08:50.771Z', ...</msg>
+<var>${response_json}</var>
+<arg>json.loads($response.content)</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2024-10-04T13:38:52.597684" elapsed="0.000996"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-04T13:38:52.599674" level="INFO">Response Body: {"id":"2958454f-e0da-4a01-b65e-cb751ef5b0d4","counterId":"705f10b8-b754-4a59-be26-2c83261a096c","originalAddress":"Spain","status":"created-recipient","createdAt":"2024-10-04T08:08:50.771Z","updatedAt":"2024-10-04T08:08:50.771Z","expireTimestamp":null,"EAN":"599285723312","pinRequired":false,"adultSignatureRequired":false,"recipientOnlyRequired":false,"commercialInvoiceRequired":false,"pinTriesCount":0,"attachments":[],"monies":[],"deliveryDriver":{"id":"00cc908e-5910-4ea8-a60b-f48ea3e9c1d9","role":"admin","profile":{"id":"2740bd22-fefb-4957-8087-a61d97090397","multipleCounters":false,"name":"Nicolas","dni":"99999999R","signature":null,"signaturePointsProvided":false,"email":"nicolas@gmail.com","phone":"+34-254789686","imageUrl":"https://test-kanguro-api-public-assets.s3.amazonaws.com/profile/e87c669c82861016111074c7441243ee8e.jpg"},"courier":{"id":"c64c9f66-5c0d-4d09-b3a1-6efea8dc6d21","name":"DHL Courier","logo":"company logo","cif":"1236547","phone":"+34-4569878596","carrierId":null,"carrier":null,"isQrReturn":true,"deliveryDriver":null,"maxPinTriesCount":3,"isRecipientMandatoryInReturnFlow":false,"isQrCollect":true}},"courier":{"id":"c64c9f66-5c0d-4d09-b3a1-6efea8dc6d21","name":"DHL Courier","logo":"company logo","cif":"1236547","phone":"+34-4569878596","carrierId":null,"carrier":null,"isQrReturn":true,"deliveryDriver":{"id":"00cc908e-5910-4ea8-a60b-f48ea3e9c1d9","role":"admin","profile":{"id":"2740bd22-fefb-4957-8087-a61d97090397","multipleCounters":false,"name":"Nicolas","dni":"99999999R","signature":null,"signaturePointsProvided":false,"email":"nicolas@gmail.com","phone":"+34-254789686","imageUrl":"https://test-kanguro-api-public-assets.s3.amazonaws.com/profile/e87c669c82861016111074c7441243ee8e.jpg"},"courier":null},"maxPinTriesCount":3,"isRecipientMandatoryInReturnFlow":false,"isQrCollect":true},"kanguroPoint":{"id":"0e9d1fbe-19ba-4d58-868b-ff4728327a72","cid":null,"addressComponents":{"postalCode":"08006","province":"Barcelona ","direction":"C/ de P\xc3\xa0dua, 77, Sarri\xc3\xa0-Sant Gervasi, ","city":"Spain"},"address":"C/ de P\xc3\xa0dua, 77, Sarri\xc3\xa0-Sant Gervasi, , Spain 08006, Barcelona ","longitude":2.145343786908928,"latitude":41.40519413303176,"countryId":"ES","timeZone":"Europe/Madrid","code":"j9Q3zAGY","isPrivate":false,"distance":null,"distanceObject":null,"parcelsCount":null,"deliverParcelsCount":null,"collectParcelsCount":null,"attachments":[{"id":"0846b6c3-3fd2-4578-a717-2f916b6ded8c","type":"type001111","url":"url001111"},{"id":"18b95781-0c05-4cd0-ab23-9f831f16c4af","type":"OTHER","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/9b7105a4eea7f1d561ff6c5c72ef107b82.csv"},{"id":"1cb41322-6cb6-404a-adae-36145c82c790","type":"MAIN","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/69cafb300610e1287d610d3a9c86ac19f7.jpg"},{"id":"20c4586b-23d0-4a0d-9954-598e85b815a8","type":"gallery","url":"url122"},{"id":"24ff98b6-e03b-454a-a948-c0c16dfab8d4","type":"IMAGE","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/fd4a856f10f91cf3dbd744870bbda13f8.png"},{"id":"37ba779d-4766-4294-9363-abb91549bb96","type":"IMAGE","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/49fe6c69f7a4a2ce53879f95d07f6d54.jpg"},{"id":"55e9bc5f-ffe9-4f2d-a61d-19151d1359f9","type":"gallery","url":"url111"},{"id":"a0757f1a-8faf-4e7d-98e7-ad7792bbfb49","type":"type0021111","url":"url002111"}],"counter":{"id":"705f10b8-b754-4a59-be26-2c83261a096c","status":"active","name":"Zudio counter","phone":"+34-455879658","email":"zudio@hf.com","serialNumber":"00000043","upsAccessPointId":null,"schedule":[{"id":"8aaaecf5-496c-40bf-b2f1-bc61294435d3","open":"09:00","close":"12:00","dayOfWeek":0,"interval":0,"isHoliday":false},{"id":"23a5fc07-17e6-483a-820b-d4dd8ccf0e72","open":"13:00","close":"19:00","dayOfWeek":0,"interval":1,"isHoliday":false},{"id":"0c901c05-e6ca-47b3-bb0f-ba437db95afe","open":"10:00","close":"18:00","dayOfWeek":1,"interval":0,"isHoliday":false},{"id":"26d9bf00-9476-4d3f-be7e-243be108f31a","open":"10:00","close":"18:00","dayOfWeek":2,"interval":0,"isHoliday":false},{"id":"74b9b39b-2c41-452f-92f3-561013e3cf2a","open":"10:00","close":"18:00","dayOfWeek":3,"interval":0,"isHoliday":false},{"id":"0226a8a5-b686-46ca-aefa-bfd4e90ddbf1","open":"10:00","close":"18:00","dayOfWeek":4,"interval":0,"isHoliday":false}],"kanguroPoint":null,"profile":{"id":"37c6dc7c-5735-40a7-83a7-02db2c1f8e25","multipleCounters":false,"name":"Javier ","dni":"12345","signature":null,"signaturePointsProvided":false,"email":"javier@kt.com","phone":"+34-455879658","imageUrl":"https://www.kanguro.com/images/logo.png"}},"containsUpsParcels":false},"sender":null,"recipient":{"id":"9ab63823-bfb1-4abb-9cac-22b5db186a46","profile":{"id":"f8c6485d-bf21-4fef-bf72-9e1498177c37","multipleCounters":false,"name":"Helen","dni":"33333333R","signature":"signature/1066cb234387a10483d710b81410f6bb5ee5.jpg","signaturePointsProvided":true,"email":"temp@gmail.com","phone":"+34-636638194","imageUrl":"https://test-kanguro-api-public-assets.s3.amazonaws.com/profile/302c6cfd3d84a5832dd86a531c2106467"},"kanguroPoints":[]},"statusChanges":[]}</msg>
+<arg>Response Body: ${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-04T13:38:52.598680" elapsed="0.000994"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-10-04T13:38:52.600672" level="INFO">${EAN} = 599285723312</msg>
+<var>${EAN}</var>
+<arg>${response_json['EAN']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-10-04T13:38:52.600672" elapsed="0.000000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-04T13:38:52.601669" level="INFO">Created Parcel EAN: 599285723312</msg>
+<arg>Created Parcel EAN: ${EAN}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-04T13:38:52.600672" elapsed="0.000997"/>
+</kw>
+<return>
+<value>${EAN}</value>
+<status status="PASS" start="2024-10-04T13:38:52.601669" elapsed="0.000000"/>
+</return>
+<msg time="2024-10-04T13:38:52.601669" level="INFO">${EAN} = 599285723312</msg>
+<var>${EAN}</var>
+<arg>${driver_token}</arg>
+<status status="PASS" start="2024-10-04T13:38:51.672614" elapsed="0.929055"/>
+</kw>
+<kw name="Login As Counter" owner="auth">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2024-10-04T13:38:52.602666" level="INFO" html="true">Directory '&lt;a href="file://D:\API test return\tests\Backend\Recipient_suite\Content-Type=application\json"&gt;D:\API test return\tests\Backend\Recipient_suite\Content-Type=application\json&lt;/a&gt;' already exists.</msg>
+<msg time="2024-10-04T13:38:52.602666" level="INFO">${headers} = None</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2024-10-04T13:38:52.601669" elapsed="0.000997"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-10-04T13:38:52.602666" level="INFO">${data} = {'phone': '+34-455879658'}</msg>
+<var>${data}</var>
+<arg>phone=${counter_phone_number}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-10-04T13:38:52.602666" elapsed="0.000000"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-10-04T13:38:53.364511" level="INFO">POST Request : url=https://api.test.kanguro.com/api/v1/counter/auth/login-first-step 
+ path_url=/api/v1/counter/auth/login-first-step 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '26', 'Content-Type': 'application/json'} 
+ body=b'{"phone": "+34-455879658"}' 
+ </msg>
+<msg time="2024-10-04T13:38:53.365508" level="INFO">POST Response : url=https://api.test.kanguro.com/api/v1/counter/auth/login-first-step 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 04 Oct 2024 08:08:51 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '52', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'ETag': 'W/"34-LSqeCk5x9kK5Exq1rGahG6XklMA"'} 
+ body={"requestId":"7b597a46-2e80-4e24-bd04-71748fa995ae"} 
+ </msg>
+<msg time="2024-10-04T13:38:53.365508" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>${base_URL}${counter_login_first_step}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>json=${data}</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2024-10-04T13:38:52.602666" elapsed="0.763842"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2024-10-04T13:38:53.368500" level="INFO">${response_json} = {'requestId': '7b597a46-2e80-4e24-bd04-71748fa995ae'}</msg>
+<var>${response_json}</var>
+<arg>json.loads($response.content)</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2024-10-04T13:38:53.366508" elapsed="0.001992"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-04T13:38:53.369484" level="INFO">Response Body: {"requestId":"7b597a46-2e80-4e24-bd04-71748fa995ae"}</msg>
+<arg>Response Body: ${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-04T13:38:53.368500" elapsed="0.000984"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<msg time="2024-10-04T13:38:53.370608" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2024-10-04T13:38:53.369484" elapsed="0.001124"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2024-10-04T13:38:53.370608" level="INFO">${response_dict} = {'requestId': '7b597a46-2e80-4e24-bd04-71748fa995ae'}</msg>
+<var>${response_dict}</var>
+<arg>json.loads($response.content)</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2024-10-04T13:38:53.370608" elapsed="0.000000"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2024-10-04T13:38:53.371633" level="INFO">${requestId} = 7b597a46-2e80-4e24-bd04-71748fa995ae</msg>
+<var>${requestId}</var>
+<arg>${response_dict}</arg>
+<arg>requestId</arg>
+<arg>default=None</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2024-10-04T13:38:53.370608" elapsed="0.001025"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-04T13:38:53.371633" level="INFO">requestId: 7b597a46-2e80-4e24-bd04-71748fa995ae</msg>
+<arg>requestId: ${requestId}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-04T13:38:53.371633" elapsed="0.000000"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<msg time="2024-10-04T13:38:53.371633" level="INFO">Length is 36.</msg>
+<arg>${requestId}</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="PASS" start="2024-10-04T13:38:53.371633" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${requestId}</value>
+<status status="PASS" start="2024-10-04T13:38:53.371633" elapsed="0.000000"/>
+</return>
+<msg time="2024-10-04T13:38:53.372633" level="INFO">${requestId_counter} = 7b597a46-2e80-4e24-bd04-71748fa995ae</msg>
+<var>${requestId_counter}</var>
+<arg>${counter_phone_number}</arg>
+<status status="PASS" start="2024-10-04T13:38:52.601669" elapsed="0.770964"/>
+</kw>
+<kw name="Login As Counter Second Step" owner="auth">
+<kw name="Create Directory" owner="OperatingSystem">
+<msg time="2024-10-04T13:38:53.373609" level="INFO" html="true">Directory '&lt;a href="file://D:\API test return\tests\Backend\Recipient_suite\Content-Type=application\json"&gt;D:\API test return\tests\Backend\Recipient_suite\Content-Type=application\json&lt;/a&gt;' already exists.</msg>
+<msg time="2024-10-04T13:38:53.373609" level="INFO">${headers} = None</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates the specified directory.</doc>
+<status status="PASS" start="2024-10-04T13:38:53.372633" elapsed="0.000976"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-10-04T13:38:53.373609" level="INFO">${data} = {'requestId': '7b597a46-2e80-4e24-bd04-71748fa995ae', 'verificationCode': '1234'}</msg>
+<var>${data}</var>
+<arg>requestId=${requestId}</arg>
+<arg>verificationCode=${verificationCode}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-10-04T13:38:53.373609" elapsed="0.000000"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2024-10-04T13:38:54.261913" level="INFO">POST Request : url=https://api.test.kanguro.com/api/v1/counter/auth/login-second-step 
+ path_url=/api/v1/counter/auth/login-second-step 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '81', 'Content-Type': 'application/json'} 
+ body=b'{"requestId": "7b597a46-2e80-4e24-bd04-71748fa995ae", "verificationCode": "1234"}' 
+ </msg>
+<msg time="2024-10-04T13:38:54.262957" level="INFO">POST Response : url=https://api.test.kanguro.com/api/v1/counter/auth/login-second-step 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 04 Oct 2024 08:08:52 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '3224', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'ETag': 'W/"c98-70FvWGsbN4bvNMeGg7rya32BmGo"'} 
+ body={"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC00NTU4Nzk2NTgiLCJzdWIiOiI3MDVmMTBiOC1iNzU0LTRhNTktYmUyNi0yYzgzMjYxYTA5NmMiLCJyb2xlIjoiYWRtaW4iLCJlbXBsb3llZUlkIjpudWxsLCJ1c2VySWQiOiIzN2M2ZGM3Yy01NzM1LTQwYTctODNhNy0wMmRiMmMxZjhlMjUiLCJpYXQiOjE3MjgwMjkzMzIsImV4cCI6MTcyODExNTczMn0.i4ZWTLpeemi7492PWgdU24Aow9yEIrXDyuAABq54IX0","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC00NTU4Nzk2NTgiLCJzdWIiOiI3MDVmMTBiOC1iNzU0LTRhNTktYmUyNi0yYzgzMjYxYTA5NmMiLCJyb2xlIjoiYWRtaW4iLCJlbXBsb3llZUlkIjpudWxsLCJ1c2VySWQiOiIzN2M2ZGM3Yy01NzM1LTQwYTctODNhNy0wMmRiMmMxZjhlMjUiLCJpYXQiOjE3MjgwMjkzMzIsImV4cCI6MTczMDYyMTMzMn0.EHN-dkTU9ik9OtAEKv6Qf0zwIJvAGWfPmhWWFpIURqQ","counter":{"id":"705f10b8-b754-4a59-be26-2c83261a096c","status":"active","name":"Zudio counter","phone":"+34-455879658","email":"zudio@hf.com","serialNumber":"00000043","iban":"********************1332","upsAccessPointId":null,"featureFlags":{"integrations":{"amazon":{"embedApp":true,"status":"none","email":"kng00000043@kanguro.com","password":"1234"}},"isAmazonCounter":false,"collectFromRecipient":true,"collectFromRecipientLabelless":true,"deliverToDeliveryDriver":true,"recoverDroppedOffRecipient":true,"showContactInfo":true},"schedule":[],"kanguroPoint":{"id":"0e9d1fbe-19ba-4d58-868b-ff4728327a72","cid":null,"addressComponents":{"postalCode":"08006","province":"Barcelona ","direction":"C/ de Pàdua, 77, Sarrià-Sant Gervasi, ","city":"Spain"},"address":"C/ de Pàdua, 77, Sarrià-Sant Gervasi, , Spain 08006, Barcelona ","longitude":2.145343786908928,"latitude":41.40519413303176,"countryId":"ES","timeZone":"Europe/Madrid","code":"j9Q3zAGY","isPrivate":false,"distance":null,"distanceObject":null,"parcelsCount":null,"deliverParcelsCount":null,"collectParcelsCount":null,"attachments":[{"id":"0846b6c3-3fd2-4578-a717-2f916b6ded8c","type":"type001111","url":"url001111"},{"id":"18b95781-0c05-4cd0-ab23-9f831f16c4af","type":"OTHER","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/9b7105a4eea7f1d561ff6c5c72ef107b82.csv"},{"id":"1cb41322-6cb6-404a-adae-36145c82c790","type":"MAIN","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/69cafb300610e1287d610d3a9c86ac19f7.jpg"},{"id":"20c4586b-23d0-4a0d-9954-598e85b815a8","type":"gallery","url":"url122"},{"id":"24ff98b6-e03b-454a-a948-c0c16dfab8d4","type":"IMAGE","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/fd4a856f10f91cf3dbd744870bbda13f8.png"},{"id":"37ba779d-4766-4294-9363-abb91549bb96","type":"IMAGE","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/49fe6c69f7a4a2ce53879f95d07f6d54.jpg"},{"id":"55e9bc5f-ffe9-4f2d-a61d-19151d1359f9","type":"gallery","url":"url111"},{"id":"a0757f1a-8faf-4e7d-98e7-ad7792bbfb49","type":"type0021111","url":"url002111"}],"counter":null,"containsUpsParcels":false},"profile":{"id":"37c6dc7c-5735-40a7-83a7-02db2c1f8e25","role":"owner","multipleCounters":false,"name":"Javier ","dni":"12345","signature":null,"signaturePointsProvided":false,"email":"javier@kt.com","phone":"+34-455879658","imageUrl":"https://www.kanguro.com/images/logo.png"},"amazonCredentials":{"email":"kng00000043@kanguro.com","password":"1234"}}} 
+ </msg>
+<msg time="2024-10-04T13:38:54.264914" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>${base_URL}${counter_login_second_step}</arg>
+<arg>headers=${HEADERS}</arg>
+<arg>json=${data}</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2024-10-04T13:38:53.373609" elapsed="0.891305"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2024-10-04T13:38:54.267907" level="INFO">${response_json} = {'accessToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC00NTU4Nzk2NTgiLCJzdWIiOiI3MDVmMTBiOC1iNzU0LTRhNTktYmUyNi0yYzgzMjYxYTA5NmMiLCJyb2xlIjoiYWRtaW4iLCJlbXBsb3llZUlkIjpudWxsLCJ1c2...</msg>
+<var>${response_json}</var>
+<arg>json.loads($response.content)</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2024-10-04T13:38:54.265911" elapsed="0.002992"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-04T13:38:54.270205" level="INFO">Response Body: {"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC00NTU4Nzk2NTgiLCJzdWIiOiI3MDVmMTBiOC1iNzU0LTRhNTktYmUyNi0yYzgzMjYxYTA5NmMiLCJyb2xlIjoiYWRtaW4iLCJlbXBsb3llZUlkIjpudWxsLCJ1c2VySWQiOiIzN2M2ZGM3Yy01NzM1LTQwYTctODNhNy0wMmRiMmMxZjhlMjUiLCJpYXQiOjE3MjgwMjkzMzIsImV4cCI6MTcyODExNTczMn0.i4ZWTLpeemi7492PWgdU24Aow9yEIrXDyuAABq54IX0","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC00NTU4Nzk2NTgiLCJzdWIiOiI3MDVmMTBiOC1iNzU0LTRhNTktYmUyNi0yYzgzMjYxYTA5NmMiLCJyb2xlIjoiYWRtaW4iLCJlbXBsb3llZUlkIjpudWxsLCJ1c2VySWQiOiIzN2M2ZGM3Yy01NzM1LTQwYTctODNhNy0wMmRiMmMxZjhlMjUiLCJpYXQiOjE3MjgwMjkzMzIsImV4cCI6MTczMDYyMTMzMn0.EHN-dkTU9ik9OtAEKv6Qf0zwIJvAGWfPmhWWFpIURqQ","counter":{"id":"705f10b8-b754-4a59-be26-2c83261a096c","status":"active","name":"Zudio counter","phone":"+34-455879658","email":"zudio@hf.com","serialNumber":"00000043","iban":"********************1332","upsAccessPointId":null,"featureFlags":{"integrations":{"amazon":{"embedApp":true,"status":"none","email":"kng00000043@kanguro.com","password":"1234"}},"isAmazonCounter":false,"collectFromRecipient":true,"collectFromRecipientLabelless":true,"deliverToDeliveryDriver":true,"recoverDroppedOffRecipient":true,"showContactInfo":true},"schedule":[],"kanguroPoint":{"id":"0e9d1fbe-19ba-4d58-868b-ff4728327a72","cid":null,"addressComponents":{"postalCode":"08006","province":"Barcelona ","direction":"C/ de P\xc3\xa0dua, 77, Sarri\xc3\xa0-Sant Gervasi, ","city":"Spain"},"address":"C/ de P\xc3\xa0dua, 77, Sarri\xc3\xa0-Sant Gervasi, , Spain 08006, Barcelona ","longitude":2.145343786908928,"latitude":41.40519413303176,"countryId":"ES","timeZone":"Europe/Madrid","code":"j9Q3zAGY","isPrivate":false,"distance":null,"distanceObject":null,"parcelsCount":null,"deliverParcelsCount":null,"collectParcelsCount":null,"attachments":[{"id":"0846b6c3-3fd2-4578-a717-2f916b6ded8c","type":"type001111","url":"url001111"},{"id":"18b95781-0c05-4cd0-ab23-9f831f16c4af","type":"OTHER","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/9b7105a4eea7f1d561ff6c5c72ef107b82.csv"},{"id":"1cb41322-6cb6-404a-adae-36145c82c790","type":"MAIN","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/69cafb300610e1287d610d3a9c86ac19f7.jpg"},{"id":"20c4586b-23d0-4a0d-9954-598e85b815a8","type":"gallery","url":"url122"},{"id":"24ff98b6-e03b-454a-a948-c0c16dfab8d4","type":"IMAGE","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/fd4a856f10f91cf3dbd744870bbda13f8.png"},{"id":"37ba779d-4766-4294-9363-abb91549bb96","type":"IMAGE","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/49fe6c69f7a4a2ce53879f95d07f6d54.jpg"},{"id":"55e9bc5f-ffe9-4f2d-a61d-19151d1359f9","type":"gallery","url":"url111"},{"id":"a0757f1a-8faf-4e7d-98e7-ad7792bbfb49","type":"type0021111","url":"url002111"}],"counter":null,"containsUpsParcels":false},"profile":{"id":"37c6dc7c-5735-40a7-83a7-02db2c1f8e25","role":"owner","multipleCounters":false,"name":"Javier ","dni":"12345","signature":null,"signaturePointsProvided":false,"email":"javier@kt.com","phone":"+34-455879658","imageUrl":"https://www.kanguro.com/images/logo.png"},"amazonCredentials":{"email":"kng00000043@kanguro.com","password":"1234"}}}</msg>
+<arg>Response Body: ${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-04T13:38:54.270009" elapsed="0.001224"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<msg time="2024-10-04T13:38:54.271233" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2024-10-04T13:38:54.271233" elapsed="0.000000"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2024-10-04T13:38:54.272228" level="INFO">${response_dict} = {'accessToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC00NTU4Nzk2NTgiLCJzdWIiOiI3MDVmMTBiOC1iNzU0LTRhNTktYmUyNi0yYzgzMjYxYTA5NmMiLCJyb2xlIjoiYWRtaW4iLCJlbXBsb3llZUlkIjpudWxsLCJ1c2...</msg>
+<var>${response_dict}</var>
+<arg>json.loads($response.content)</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2024-10-04T13:38:54.271233" elapsed="0.000995"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<msg time="2024-10-04T13:38:54.272228" level="INFO">${accessToken} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC00NTU4Nzk2NTgiLCJzdWIiOiI3MDVmMTBiOC1iNzU0LTRhNTktYmUyNi0yYzgzMjYxYTA5NmMiLCJyb2xlIjoiYWRtaW4iLCJlbXBsb3llZUlkIjpudWxsLCJ1c2VySWQiOiIzN2M2ZGM...</msg>
+<var>${accessToken}</var>
+<arg>${response_dict}</arg>
+<arg>accessToken</arg>
+<arg>default=None</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="PASS" start="2024-10-04T13:38:54.272228" elapsed="0.000000"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-10-04T13:38:54.273224" level="INFO">${counter_token} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC00NTU4Nzk2NTgiLCJzdWIiOiI3MDVmMTBiOC1iNzU0LTRhNTktYmUyNi0yYzgzMjYxYTA5NmMiLCJyb2xlIjoiYWRtaW4iLCJlbXBsb3llZUlkIjpudWxsLCJ1c2VySWQiOiIz...</msg>
+<var>${counter_token}</var>
+<arg>Bearer ${accessToken}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-10-04T13:38:54.272228" elapsed="0.000996"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-04T13:38:54.273224" level="INFO">accessToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC00NTU4Nzk2NTgiLCJzdWIiOiI3MDVmMTBiOC1iNzU0LTRhNTktYmUyNi0yYzgzMjYxYTA5NmMiLCJyb2xlIjoiYWRtaW4iLCJlbXBsb3llZUlkIjpudWxsLCJ1c2VySWQiOiIzN2M2ZGM3Yy01NzM1LTQwYTctODNhNy0wMmRiMmMxZjhlMjUiLCJpYXQiOjE3MjgwMjkzMzIsImV4cCI6MTcyODExNTczMn0.i4ZWTLpeemi7492PWgdU24Aow9yEIrXDyuAABq54IX0</msg>
+<arg>accessToken: ${accessToken}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-04T13:38:54.273224" elapsed="0.000000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-04T13:38:54.273224" level="INFO">counter_token: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC00NTU4Nzk2NTgiLCJzdWIiOiI3MDVmMTBiOC1iNzU0LTRhNTktYmUyNi0yYzgzMjYxYTA5NmMiLCJyb2xlIjoiYWRtaW4iLCJlbXBsb3llZUlkIjpudWxsLCJ1c2VySWQiOiIzN2M2ZGM3Yy01NzM1LTQwYTctODNhNy0wMmRiMmMxZjhlMjUiLCJpYXQiOjE3MjgwMjkzMzIsImV4cCI6MTcyODExNTczMn0.i4ZWTLpeemi7492PWgdU24Aow9yEIrXDyuAABq54IX0</msg>
+<arg>counter_token: ${counter_token}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-04T13:38:54.273224" elapsed="0.000000"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<msg time="2024-10-04T13:38:54.274227" level="INFO">Length is 332.</msg>
+<arg>${accessToken}</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="PASS" start="2024-10-04T13:38:54.274227" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${counter_token}</value>
+<status status="PASS" start="2024-10-04T13:38:54.274227" elapsed="0.000000"/>
+</return>
+<msg time="2024-10-04T13:38:54.274227" level="INFO">${counter_token} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC00NTU4Nzk2NTgiLCJzdWIiOiI3MDVmMTBiOC1iNzU0LTRhNTktYmUyNi0yYzgzMjYxYTA5NmMiLCJyb2xlIjoiYWRtaW4iLCJlbXBsb3llZUlkIjpudWxsLCJ1c2VySWQiOiIz...</msg>
+<var>${counter_token}</var>
+<arg>${requestId_counter}</arg>
+<arg>${First_counter_otp}</arg>
+<status status="PASS" start="2024-10-04T13:38:53.372633" elapsed="0.901594"/>
+</kw>
+<kw name="Get parcel id by EAN" owner="recipient">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-10-04T13:38:54.275219" level="INFO">${headers} = {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC00NTU4Nzk2NTgiLCJzdWIiOiI3MDVmMTBiOC1iNzU0LTRhNTktYmUyNi0yYzgzMjYxYTA5NmMiLCJyb...</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=${counter_token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-10-04T13:38:54.275219" elapsed="0.000000"/>
+</kw>
+<kw name="GET" owner="RequestsLibrary">
+<msg time="2024-10-04T13:38:55.072968" level="INFO">GET Request : url=https://api.test.kanguro.com/api/v1/counter/parcels/ean/599285723312 
+ path_url=/api/v1/counter/parcels/ean/599285723312 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC00NTU4Nzk2NTgiLCJzdWIiOiI3MDVmMTBiOC1iNzU0LTRhNTktYmUyNi0yYzgzMjYxYTA5NmMiLCJyb2xlIjoiYWRtaW4iLCJlbXBsb3llZUlkIjpudWxsLCJ1c2VySWQiOiIzN2M2ZGM3Yy01NzM1LTQwYTctODNhNy0wMmRiMmMxZjhlMjUiLCJpYXQiOjE3MjgwMjkzMzIsImV4cCI6MTcyODExNTczMn0.i4ZWTLpeemi7492PWgdU24Aow9yEIrXDyuAABq54IX0'} 
+ body=None 
+ </msg>
+<msg time="2024-10-04T13:38:55.073964" level="INFO">GET Response : url=https://api.test.kanguro.com/api/v1/counter/parcels/ean/599285723312 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 04 Oct 2024 08:08:53 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '5840', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'ETag': 'W/"16d0-pAh/8eh/7722Ln7eV5TyZpy5p9g"'} 
+ body={"id":"2958454f-e0da-4a01-b65e-cb751ef5b0d4","counterId":"705f10b8-b754-4a59-be26-2c83261a096c","originalAddress":"Spain","status":"created-recipient","createdAt":"2024-10-04T08:08:50.771Z","updatedAt":"2024-10-04T08:08:50.771Z","expireTimestamp":null,"EAN":"599285723312","pinRequired":false,"adultSignatureRequired":false,"recipientOnlyRequired":false,"commercialInvoiceRequired":false,"pinTriesCount":0,"attachments":[],"monies":[],"deliveryDriver":{"id":"00cc908e-5910-4ea8-a60b-f48ea3e9c1d9","role":"admin","profile":{"id":"2740bd22-fefb-4957-8087-a61d97090397","multipleCounters":false,"name":"Nicolas","dni":"99999999R","signature":null,"signaturePointsProvided":false,"email":"nicolas@gmail.com","phone":"+34-254789686","imageUrl":"https://test-kanguro-api-public-assets.s3.amazonaws.com/profile/e87c669c82861016111074c7441243ee8e.jpg"},"courier":{"id":"c64c9f66-5c0d-4d09-b3a1-6efea8dc6d21","name":"DHL Courier","logo":"company logo","cif":"1236547","phone":"+34-4569878596","carrierId":null,"carrier":null,"isQrReturn":true,"deliveryDriver":null,"maxPinTriesCount":3,"isRecipientMandatoryInReturnFlow":false,"isQrCollect":true}},"courier":{"id":"c64c9f66-5c0d-4d09-b3a1-6efea8dc6d21","name":"DHL Courier","logo":"company logo","cif":"1236547","phone":"+34-4569878596","carrierId":null,"carrier":null,"isQrReturn":true,"deliveryDriver":{"id":"00cc908e-5910-4ea8-a60b-f48ea3e9c1d9","role":"admin","profile":{"id":"2740bd22-fefb-4957-8087-a61d97090397","multipleCounters":false,"name":"Nicolas","dni":"99999999R","signature":null,"signaturePointsProvided":false,"email":"nicolas@gmail.com","phone":"+34-254789686","imageUrl":"https://test-kanguro-api-public-assets.s3.amazonaws.com/profile/e87c669c82861016111074c7441243ee8e.jpg"},"courier":null},"maxPinTriesCount":3,"isRecipientMandatoryInReturnFlow":false,"isQrCollect":true},"kanguroPoint":{"id":"0e9d1fbe-19ba-4d58-868b-ff4728327a72","cid":null,"addressComponents":{"postalCode":"08006","province":"Barcelona ","direction":"C/ de Pàdua, 77, Sarrià-Sant Gervasi, ","city":"Spain"},"address":"C/ de Pàdua, 77, Sarrià-Sant Gervasi, , Spain 08006, Barcelona ","longitude":2.145343786908928,"latitude":41.40519413303176,"countryId":"ES","timeZone":"Europe/Madrid","code":"j9Q3zAGY","isPrivate":false,"distance":null,"distanceObject":null,"parcelsCount":null,"deliverParcelsCount":null,"collectParcelsCount":null,"attachments":[{"id":"0846b6c3-3fd2-4578-a717-2f916b6ded8c","type":"type001111","url":"url001111"},{"id":"18b95781-0c05-4cd0-ab23-9f831f16c4af","type":"OTHER","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/9b7105a4eea7f1d561ff6c5c72ef107b82.csv"},{"id":"1cb41322-6cb6-404a-adae-36145c82c790","type":"MAIN","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/69cafb300610e1287d610d3a9c86ac19f7.jpg"},{"id":"20c4586b-23d0-4a0d-9954-598e85b815a8","type":"gallery","url":"url122"},{"id":"24ff98b6-e03b-454a-a948-c0c16dfab8d4","type":"IMAGE","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/fd4a856f10f91cf3dbd744870bbda13f8.png"},{"id":"37ba779d-4766-4294-9363-abb91549bb96","type":"IMAGE","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/49fe6c69f7a4a2ce53879f95d07f6d54.jpg"},{"id":"55e9bc5f-ffe9-4f2d-a61d-19151d1359f9","type":"gallery","url":"url111"},{"id":"a0757f1a-8faf-4e7d-98e7-ad7792bbfb49","type":"type0021111","url":"url002111"}],"counter":{"id":"705f10b8-b754-4a59-be26-2c83261a096c","status":"active","name":"Zudio counter","phone":"+34-455879658","email":"zudio@hf.com","serialNumber":"00000043","upsAccessPointId":null,"schedule":[{"id":"8aaaecf5-496c-40bf-b2f1-bc61294435d3","open":"09:00","close":"12:00","dayOfWeek":0,"interval":0,"isHoliday":false},{"id":"23a5fc07-17e6-483a-820b-d4dd8ccf0e72","open":"13:00","close":"19:00","dayOfWeek":0,"interval":1,"isHoliday":false},{"id":"0c901c05-e6ca-47b3-bb0f-ba437db95afe","open":"10:00","close":"18:00","dayOfWeek":1,"interval":0,"isHoliday":false},{"id":"26d9bf00-9476-4d3f-be7e-243be108f31a","open":"10:00","close":"18:00","dayOfWeek":2,"interval":0,"isHoliday":false},{"id":"74b9b39b-2c41-452f-92f3-561013e3cf2a","open":"10:00","close":"18:00","dayOfWeek":3,"interval":0,"isHoliday":false},{"id":"0226a8a5-b686-46ca-aefa-bfd4e90ddbf1","open":"10:00","close":"18:00","dayOfWeek":4,"interval":0,"isHoliday":false}],"kanguroPoint":null,"profile":{"id":"37c6dc7c-5735-40a7-83a7-02db2c1f8e25","multipleCounters":false,"name":"Javier ","dni":"12345","signature":null,"signaturePointsProvided":false,"email":"javier@kt.com","phone":"+34-455879658","imageUrl":"https://www.kanguro.com/images/logo.png"}},"containsUpsParcels":false},"sender":null,"recipient":{"id":"9ab63823-bfb1-4abb-9cac-22b5db186a46","profile":{"id":"f8c6485d-bf21-4fef-bf72-9e1498177c37","multipleCounters":false,"name":"Helen","dni":"33333333R","signature":"signature/1066cb234387a10483d710b81410f6bb5ee5.jpg","signaturePointsProvided":true,"email":"temp@gmail.com","phone":"+34-636638194","imageUrl":"https://test-kanguro-api-public-assets.s3.amazonaws.com/profile/302c6cfd3d84a5832dd86a531c2106467"},"kanguroPoints":[]},"statusChanges":[{"id":"a594a462-22e6-4776-8a39-c3190bd4c380","status":"created-recipient","createdAt":"2024-10-04T08:08:50.810Z","adminId":null,"counterId":null,"deliveryDriverId":"00cc908e-5910-4ea8-a60b-f48ea3e9c1d9","recipientId":null,"counter":null,"deliveryDriver":{"id":"00cc908e-5910-4ea8-a60b-f48ea3e9c1d9","role":"admin","profile":{"id":"2740bd22-fefb-4957-8087-a61d97090397","multipleCounters":false,"name":"Nicolas","dni":"99999999R","signature":null,"signaturePointsProvided":false,"email":"nicolas@gmail.com","phone":"+34-254789686","imageUrl":"https://test-kanguro-api-public-assets.s3.amazonaws.com/profile/e87c669c82861016111074c7441243ee8e.jpg"},"courier":null},"recipient":null,"admin":null}]} 
+ </msg>
+<msg time="2024-10-04T13:38:55.074962" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>${base_URL}${get_by_EAN}${EAN}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a GET request.</doc>
+<status status="PASS" start="2024-10-04T13:38:54.275219" elapsed="0.799743"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2024-10-04T13:38:55.077954" level="INFO">${response_json} = {'id': '2958454f-e0da-4a01-b65e-cb751ef5b0d4', 'counterId': '705f10b8-b754-4a59-be26-2c83261a096c', 'originalAddress': 'Spain', 'status': 'created-recipient', 'createdAt': '2024-10-04T08:08:50.771Z', ...</msg>
+<var>${response_json}</var>
+<arg>json.loads($response.content)</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2024-10-04T13:38:55.075960" elapsed="0.001994"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-04T13:38:55.078939" level="INFO">Response Body: {"id":"2958454f-e0da-4a01-b65e-cb751ef5b0d4","counterId":"705f10b8-b754-4a59-be26-2c83261a096c","originalAddress":"Spain","status":"created-recipient","createdAt":"2024-10-04T08:08:50.771Z","updatedAt":"2024-10-04T08:08:50.771Z","expireTimestamp":null,"EAN":"599285723312","pinRequired":false,"adultSignatureRequired":false,"recipientOnlyRequired":false,"commercialInvoiceRequired":false,"pinTriesCount":0,"attachments":[],"monies":[],"deliveryDriver":{"id":"00cc908e-5910-4ea8-a60b-f48ea3e9c1d9","role":"admin","profile":{"id":"2740bd22-fefb-4957-8087-a61d97090397","multipleCounters":false,"name":"Nicolas","dni":"99999999R","signature":null,"signaturePointsProvided":false,"email":"nicolas@gmail.com","phone":"+34-254789686","imageUrl":"https://test-kanguro-api-public-assets.s3.amazonaws.com/profile/e87c669c82861016111074c7441243ee8e.jpg"},"courier":{"id":"c64c9f66-5c0d-4d09-b3a1-6efea8dc6d21","name":"DHL Courier","logo":"company logo","cif":"1236547","phone":"+34-4569878596","carrierId":null,"carrier":null,"isQrReturn":true,"deliveryDriver":null,"maxPinTriesCount":3,"isRecipientMandatoryInReturnFlow":false,"isQrCollect":true}},"courier":{"id":"c64c9f66-5c0d-4d09-b3a1-6efea8dc6d21","name":"DHL Courier","logo":"company logo","cif":"1236547","phone":"+34-4569878596","carrierId":null,"carrier":null,"isQrReturn":true,"deliveryDriver":{"id":"00cc908e-5910-4ea8-a60b-f48ea3e9c1d9","role":"admin","profile":{"id":"2740bd22-fefb-4957-8087-a61d97090397","multipleCounters":false,"name":"Nicolas","dni":"99999999R","signature":null,"signaturePointsProvided":false,"email":"nicolas@gmail.com","phone":"+34-254789686","imageUrl":"https://test-kanguro-api-public-assets.s3.amazonaws.com/profile/e87c669c82861016111074c7441243ee8e.jpg"},"courier":null},"maxPinTriesCount":3,"isRecipientMandatoryInReturnFlow":false,"isQrCollect":true},"kanguroPoint":{"id":"0e9d1fbe-19ba-4d58-868b-ff4728327a72","cid":null,"addressComponents":{"postalCode":"08006","province":"Barcelona ","direction":"C/ de P\xc3\xa0dua, 77, Sarri\xc3\xa0-Sant Gervasi, ","city":"Spain"},"address":"C/ de P\xc3\xa0dua, 77, Sarri\xc3\xa0-Sant Gervasi, , Spain 08006, Barcelona ","longitude":2.145343786908928,"latitude":41.40519413303176,"countryId":"ES","timeZone":"Europe/Madrid","code":"j9Q3zAGY","isPrivate":false,"distance":null,"distanceObject":null,"parcelsCount":null,"deliverParcelsCount":null,"collectParcelsCount":null,"attachments":[{"id":"0846b6c3-3fd2-4578-a717-2f916b6ded8c","type":"type001111","url":"url001111"},{"id":"18b95781-0c05-4cd0-ab23-9f831f16c4af","type":"OTHER","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/9b7105a4eea7f1d561ff6c5c72ef107b82.csv"},{"id":"1cb41322-6cb6-404a-adae-36145c82c790","type":"MAIN","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/69cafb300610e1287d610d3a9c86ac19f7.jpg"},{"id":"20c4586b-23d0-4a0d-9954-598e85b815a8","type":"gallery","url":"url122"},{"id":"24ff98b6-e03b-454a-a948-c0c16dfab8d4","type":"IMAGE","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/fd4a856f10f91cf3dbd744870bbda13f8.png"},{"id":"37ba779d-4766-4294-9363-abb91549bb96","type":"IMAGE","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/49fe6c69f7a4a2ce53879f95d07f6d54.jpg"},{"id":"55e9bc5f-ffe9-4f2d-a61d-19151d1359f9","type":"gallery","url":"url111"},{"id":"a0757f1a-8faf-4e7d-98e7-ad7792bbfb49","type":"type0021111","url":"url002111"}],"counter":{"id":"705f10b8-b754-4a59-be26-2c83261a096c","status":"active","name":"Zudio counter","phone":"+34-455879658","email":"zudio@hf.com","serialNumber":"00000043","upsAccessPointId":null,"schedule":[{"id":"8aaaecf5-496c-40bf-b2f1-bc61294435d3","open":"09:00","close":"12:00","dayOfWeek":0,"interval":0,"isHoliday":false},{"id":"23a5fc07-17e6-483a-820b-d4dd8ccf0e72","open":"13:00","close":"19:00","dayOfWeek":0,"interval":1,"isHoliday":false},{"id":"0c901c05-e6ca-47b3-bb0f-ba437db95afe","open":"10:00","close":"18:00","dayOfWeek":1,"interval":0,"isHoliday":false},{"id":"26d9bf00-9476-4d3f-be7e-243be108f31a","open":"10:00","close":"18:00","dayOfWeek":2,"interval":0,"isHoliday":false},{"id":"74b9b39b-2c41-452f-92f3-561013e3cf2a","open":"10:00","close":"18:00","dayOfWeek":3,"interval":0,"isHoliday":false},{"id":"0226a8a5-b686-46ca-aefa-bfd4e90ddbf1","open":"10:00","close":"18:00","dayOfWeek":4,"interval":0,"isHoliday":false}],"kanguroPoint":null,"profile":{"id":"37c6dc7c-5735-40a7-83a7-02db2c1f8e25","multipleCounters":false,"name":"Javier ","dni":"12345","signature":null,"signaturePointsProvided":false,"email":"javier@kt.com","phone":"+34-455879658","imageUrl":"https://www.kanguro.com/images/logo.png"}},"containsUpsParcels":false},"sender":null,"recipient":{"id":"9ab63823-bfb1-4abb-9cac-22b5db186a46","profile":{"id":"f8c6485d-bf21-4fef-bf72-9e1498177c37","multipleCounters":false,"name":"Helen","dni":"33333333R","signature":"signature/1066cb234387a10483d710b81410f6bb5ee5.jpg","signaturePointsProvided":true,"email":"temp@gmail.com","phone":"+34-636638194","imageUrl":"https://test-kanguro-api-public-assets.s3.amazonaws.com/profile/302c6cfd3d84a5832dd86a531c2106467"},"kanguroPoints":[]},"statusChanges":[{"id":"a594a462-22e6-4776-8a39-c3190bd4c380","status":"created-recipient","createdAt":"2024-10-04T08:08:50.810Z","adminId":null,"counterId":null,"deliveryDriverId":"00cc908e-5910-4ea8-a60b-f48ea3e9c1d9","recipientId":null,"counter":null,"deliveryDriver":{"id":"00cc908e-5910-4ea8-a60b-f48ea3e9c1d9","role":"admin","profile":{"id":"2740bd22-fefb-4957-8087-a61d97090397","multipleCounters":false,"name":"Nicolas","dni":"99999999R","signature":null,"signaturePointsProvided":false,"email":"nicolas@gmail.com","phone":"+34-254789686","imageUrl":"https://test-kanguro-api-public-assets.s3.amazonaws.com/profile/e87c669c82861016111074c7441243ee8e.jpg"},"courier":null},"recipient":null,"admin":null}]}</msg>
+<arg>Response Body: ${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-04T13:38:55.077954" elapsed="0.000985"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-10-04T13:38:55.079936" level="INFO">${parcel_id} = 2958454f-e0da-4a01-b65e-cb751ef5b0d4</msg>
+<var>${parcel_id}</var>
+<arg>${response_json['id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-10-04T13:38:55.078939" elapsed="0.000997"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-04T13:38:55.079936" level="INFO">Created Parcel ID: 2958454f-e0da-4a01-b65e-cb751ef5b0d4</msg>
+<arg>Created Parcel ID: ${parcel_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-04T13:38:55.079936" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${parcel_id}</value>
+<status status="PASS" start="2024-10-04T13:38:55.079936" elapsed="0.000000"/>
+</return>
+<msg time="2024-10-04T13:38:55.080934" level="INFO">${parcel_id} = 2958454f-e0da-4a01-b65e-cb751ef5b0d4</msg>
+<var>${parcel_id}</var>
+<arg>${counter_token}</arg>
+<arg>${EAN}</arg>
+<status status="PASS" start="2024-10-04T13:38:54.274227" elapsed="0.806707"/>
+</kw>
+<kw name="Validating the parcel and changing the parcel status into drop-off recipient" owner="recipient">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-10-04T13:38:55.080934" level="INFO">${headers} = {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC00NTU4Nzk2NTgiLCJzdWIiOiI3MDVmMTBiOC1iNzU0LTRhNTktYmUyNi0yYzgzMjYxYTA5NmMiLCJyb...</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=${counter_token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-10-04T13:38:55.080934" elapsed="0.000000"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-10-04T13:38:55.081904" level="INFO">${data} = {'action': 'collect-from-recipient', 'valid': 'True', 'pin': '123456', 'attachments': '[]', 'monies': '[]', 'adultSignatureRequired': 'True', 'recipientOnlyRequired': 'True', 'commercialInvoiceRequire...</msg>
+<var>${data}</var>
+<arg>action=${action_return}</arg>
+<arg>valid=${valid}</arg>
+<arg>pin=${pin}</arg>
+<arg>attachments=${attachments}</arg>
+<arg>monies=${monies}</arg>
+<arg>adultSignatureRequired=${adultSignatureRequired}</arg>
+<arg>recipientOnlyRequired=${recipientOnlyRequired}</arg>
+<arg>commercialInvoiceRequired=${commercialInvoiceRequired}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-10-04T13:38:55.081904" elapsed="0.000000"/>
+</kw>
+<kw name="PATCH" owner="RequestsLibrary">
+<msg time="2024-10-04T13:38:55.868480" level="INFO">PATCH Request : url=https://api.test.kanguro.com/api/v1/counter/parcels/2958454f-e0da-4a01-b65e-cb751ef5b0d4 
+ path_url=/api/v1/counter/parcels/2958454f-e0da-4a01-b65e-cb751ef5b0d4 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC00NTU4Nzk2NTgiLCJzdWIiOiI3MDVmMTBiOC1iNzU0LTRhNTktYmUyNi0yYzgzMjYxYTA5NmMiLCJyb2xlIjoiYWRtaW4iLCJlbXBsb3llZUlkIjpudWxsLCJ1c2VySWQiOiIzN2M2ZGM3Yy01NzM1LTQwYTctODNhNy0wMmRiMmMxZjhlMjUiLCJpYXQiOjE3MjgwMjkzMzIsImV4cCI6MTcyODExNTczMn0.i4ZWTLpeemi7492PWgdU24Aow9yEIrXDyuAABq54IX0', 'Content-Length': '212'} 
+ body=b'{"action": "collect-from-recipient", "valid": "True", "pin": "123456", "attachments": "[]", "monies": "[]", "adultSignatureRequired": "True", "recipientOnlyRequired": "True", "commercialInvoiceRequired": "False"}' 
+ </msg>
+<msg time="2024-10-04T13:38:55.868480" level="INFO">PATCH Response : url=https://api.test.kanguro.com/api/v1/counter/parcels/2958454f-e0da-4a01-b65e-cb751ef5b0d4 
+ status=204, reason=No Content 
+ headers={'Date': 'Fri, 04 Oct 2024 08:08:54 GMT', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*'} 
+ body=None 
+ </msg>
+<msg time="2024-10-04T13:38:55.869453" level="INFO">${response} = &lt;Response [204]&gt;</msg>
+<var>${response}</var>
+<arg>${base_URL}${Validate_parcel_endpoint}${parcel_id}</arg>
+<arg>headers=${headers}</arg>
+<arg>json=${data}</arg>
+<doc>Sends a PUT request.</doc>
+<status status="PASS" start="2024-10-04T13:38:55.081904" elapsed="0.787549"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-04T13:38:55.870450" level="INFO">Response Body: </msg>
+<arg>Response Body: ${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-04T13:38:55.869453" elapsed="0.000997"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<msg time="2024-10-04T13:38:55.872445" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>204</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2024-10-04T13:38:55.871448" elapsed="0.000997"/>
+</kw>
+<arg>${counter_token}</arg>
+<arg>${parcel_id}</arg>
+<status status="PASS" start="2024-10-04T13:38:55.080934" elapsed="0.791511"/>
+</kw>
+<kw name="Confirm the returning of drop-off recipient parcel" owner="recipient">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-10-04T13:38:55.873443" level="INFO">${headers} = {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC0yNTQ3ODk2ODYiLCJzdWIiOiIwMGNjOTA4ZS01OTEwLTRlYTgtYTYwYi1mNDhlYTNlOWMxZDkiLCJyb...</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=${Driver_token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-10-04T13:38:55.873443" elapsed="0.000000"/>
+</kw>
+<kw name="PATCH" owner="RequestsLibrary">
+<msg time="2024-10-04T13:38:56.751725" level="INFO">PATCH Request : url=https://api.test.kanguro.com/api/v1/deliveryDriver/parcels/counter/705f10b8-b754-4a59-be26-2c83261a096c/confirm-return 
+ path_url=/api/v1/deliveryDriver/parcels/counter/705f10b8-b754-4a59-be26-2c83261a096c/confirm-return 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC0yNTQ3ODk2ODYiLCJzdWIiOiIwMGNjOTA4ZS01OTEwLTRlYTgtYTYwYi1mNDhlYTNlOWMxZDkiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MjgwMjkzMjksImV4cCI6MTcyODExNTcyOX0.5BtguupNKFIOoReICza-BWaGUlcjaUlMu4OEDhWu21g', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg time="2024-10-04T13:38:56.751725" level="INFO">PATCH Response : url=https://api.test.kanguro.com/api/v1/deliveryDriver/parcels/counter/705f10b8-b754-4a59-be26-2c83261a096c/confirm-return 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 04 Oct 2024 08:08:55 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '61', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'ETag': 'W/"3d-5PXLFMi3S8sx5oRtnKGOS0Sh5CQ"'} 
+ body={"groupId":"xIBOyluMemTMTFD2jFgD83JIjJ4MH2","parcelsCount":2} 
+ </msg>
+<msg time="2024-10-04T13:38:56.752723" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>${base_URL}${request_counter_to_confirm_endpoint1}${Counter_id}${request_counter_to_confirm_endpoint2}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a PUT request.</doc>
+<status status="PASS" start="2024-10-04T13:38:55.873443" elapsed="0.879280"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2024-10-04T13:38:56.754718" level="INFO">${response_json} = {'groupId': 'xIBOyluMemTMTFD2jFgD83JIjJ4MH2', 'parcelsCount': 2}</msg>
+<var>${response_json}</var>
+<arg>json.loads($response.content)</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2024-10-04T13:38:56.753720" elapsed="0.001995"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-04T13:38:56.756710" level="INFO">Response Body: {"groupId":"xIBOyluMemTMTFD2jFgD83JIjJ4MH2","parcelsCount":2}</msg>
+<arg>Response Body: ${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-04T13:38:56.755715" elapsed="0.000995"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-10-04T13:38:56.756710" level="INFO">${group_id} = xIBOyluMemTMTFD2jFgD83JIjJ4MH2</msg>
+<var>${group_id}</var>
+<arg>${response_json['groupId']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-10-04T13:38:56.756710" elapsed="0.000000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-04T13:38:56.757707" level="INFO">group ID: xIBOyluMemTMTFD2jFgD83JIjJ4MH2</msg>
+<arg>group ID: ${group_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-04T13:38:56.757707" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${group_id}</value>
+<status status="PASS" start="2024-10-04T13:38:56.757707" elapsed="0.000000"/>
+</return>
+<msg time="2024-10-04T13:38:56.757707" level="INFO">${group_id} = xIBOyluMemTMTFD2jFgD83JIjJ4MH2</msg>
+<var>${group_id}</var>
+<arg>${driver_token}</arg>
+<status status="PASS" start="2024-10-04T13:38:55.872445" elapsed="0.885262"/>
+</kw>
+<kw name="Updating the parcel status into returning" owner="recipient">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-10-04T13:38:56.758704" level="INFO">${headers} = {'content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC00NTU4Nzk2NTgiLCJzdWIiOiI3MDVmMTBiOC1iNzU0LTRhNTktYmUyNi0yYzgzMjYxYTA5NmMiLCJyb...</msg>
+<var>${headers}</var>
+<arg>content-Type=application/json</arg>
+<arg>Authorization=${Counter_Token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-10-04T13:38:56.758704" elapsed="0.000000"/>
+</kw>
+<kw name="GET" owner="RequestsLibrary">
+<msg time="2024-10-04T13:38:57.554989" level="INFO">GET Request : url=https://api.test.kanguro.com/api/v1/counter/parcels/group/xIBOyluMemTMTFD2jFgD83JIjJ4MH2/action 
+ path_url=/api/v1/counter/parcels/group/xIBOyluMemTMTFD2jFgD83JIjJ4MH2/action 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC00NTU4Nzk2NTgiLCJzdWIiOiI3MDVmMTBiOC1iNzU0LTRhNTktYmUyNi0yYzgzMjYxYTA5NmMiLCJyb2xlIjoiYWRtaW4iLCJlbXBsb3llZUlkIjpudWxsLCJ1c2VySWQiOiIzN2M2ZGM3Yy01NzM1LTQwYTctODNhNy0wMmRiMmMxZjhlMjUiLCJpYXQiOjE3MjgwMjkzMzIsImV4cCI6MTcyODExNTczMn0.i4ZWTLpeemi7492PWgdU24Aow9yEIrXDyuAABq54IX0'} 
+ body=None 
+ </msg>
+<msg time="2024-10-04T13:38:57.555986" level="INFO">GET Response : url=https://api.test.kanguro.com/api/v1/counter/parcels/group/xIBOyluMemTMTFD2jFgD83JIjJ4MH2/action 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 04 Oct 2024 08:08:55 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '82', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'ETag': 'W/"52-cDfP4vqgiAWpbaC6BYGLkN65NVw"'} 
+ body={"action":"deliver-to-delivery-driver","groupId":"xIBOyluMemTMTFD2jFgD83JIjJ4MH2"} 
+ </msg>
+<msg time="2024-10-04T13:38:57.555986" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>${base_URL}${next_action_endpoint1}${group_id}${next_action_endpoint2}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a GET request.</doc>
+<status status="PASS" start="2024-10-04T13:38:56.758704" elapsed="0.798279"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2024-10-04T13:38:57.558978" level="INFO">${response_json} = {'action': 'deliver-to-delivery-driver', 'groupId': 'xIBOyluMemTMTFD2jFgD83JIjJ4MH2'}</msg>
+<var>${response_json}</var>
+<arg>json.loads($response.content)</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2024-10-04T13:38:57.556983" elapsed="0.001995"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-04T13:38:57.558978" level="INFO">Response Body: {"action":"deliver-to-delivery-driver","groupId":"xIBOyluMemTMTFD2jFgD83JIjJ4MH2"}</msg>
+<arg>Response Body: ${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-04T13:38:57.558978" elapsed="0.000000"/>
+</kw>
+<arg>${counter_token}</arg>
+<arg>${group_id}</arg>
+<status status="PASS" start="2024-10-04T13:38:56.758704" elapsed="0.801260"/>
+</kw>
+<kw name="Getting the parcel id using group" owner="recipient">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-10-04T13:38:57.559964" level="INFO">${headers} = {'content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC00NTU4Nzk2NTgiLCJzdWIiOiI3MDVmMTBiOC1iNzU0LTRhNTktYmUyNi0yYzgzMjYxYTA5NmMiLCJyb...</msg>
+<var>${headers}</var>
+<arg>content-Type=application/json</arg>
+<arg>Authorization=${Counter_Token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-10-04T13:38:57.559964" elapsed="0.000000"/>
+</kw>
+<kw name="GET" owner="RequestsLibrary">
+<msg time="2024-10-04T13:38:58.426921" level="INFO">GET Request : url=https://api.test.kanguro.com/api/v1/counter/parcels/group/xIBOyluMemTMTFD2jFgD83JIjJ4MH2 
+ path_url=/api/v1/counter/parcels/group/xIBOyluMemTMTFD2jFgD83JIjJ4MH2 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC00NTU4Nzk2NTgiLCJzdWIiOiI3MDVmMTBiOC1iNzU0LTRhNTktYmUyNi0yYzgzMjYxYTA5NmMiLCJyb2xlIjoiYWRtaW4iLCJlbXBsb3llZUlkIjpudWxsLCJ1c2VySWQiOiIzN2M2ZGM3Yy01NzM1LTQwYTctODNhNy0wMmRiMmMxZjhlMjUiLCJpYXQiOjE3MjgwMjkzMzIsImV4cCI6MTcyODExNTczMn0.i4ZWTLpeemi7492PWgdU24Aow9yEIrXDyuAABq54IX0'} 
+ body=None 
+ </msg>
+<msg time="2024-10-04T13:38:58.426921" level="INFO">GET Response : url=https://api.test.kanguro.com/api/v1/counter/parcels/group/xIBOyluMemTMTFD2jFgD83JIjJ4MH2 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 04 Oct 2024 08:08:56 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '10301', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'ETag': 'W/"283d-p1eddbeheUuBJHv6tTVI0PtrHvo"'} 
+ body={"count":2,"items":[{"id":"2958454f-e0da-4a01-b65e-cb751ef5b0d4","counterId":"705f10b8-b754-4a59-be26-2c83261a096c","originalAddress":"Spain","status":"returning","createdAt":"2024-10-04T08:08:50.771Z","updatedAt":"2024-10-04T08:08:55.000Z","expireTimestamp":null,"EAN":"599285723312","pinRequired":false,"adultSignatureRequired":false,"recipientOnlyRequired":false,"commercialInvoiceRequired":false,"pinTriesCount":0,"attachments":[],"monies":[],"deliveryDriver":{"id":"00cc908e-5910-4ea8-a60b-f48ea3e9c1d9","role":"admin","profile":{"id":"2740bd22-fefb-4957-8087-a61d97090397","multipleCounters":false,"name":"Nicolas","dni":"99999999R","signature":null,"signaturePointsProvided":false,"email":"nicolas@gmail.com","phone":"+34-254789686","imageUrl":"https://test-kanguro-api-public-assets.s3.amazonaws.com/profile/e87c669c82861016111074c7441243ee8e.jpg"},"courier":{"id":"c64c9f66-5c0d-4d09-b3a1-6efea8dc6d21","name":"DHL Courier","logo":"company logo","cif":"1236547","phone":"+34-4569878596","carrierId":null,"carrier":null,"isQrReturn":true,"deliveryDriver":null,"maxPinTriesCount":3,"isRecipientMandatoryInReturnFlow":false,"isQrCollect":true}},"courier":{"id":"c64c9f66-5c0d-4d09-b3a1-6efea8dc6d21","name":"DHL Courier","logo":"company logo","cif":"1236547","phone":"+34-4569878596","carrierId":null,"carrier":null,"isQrReturn":true,"deliveryDriver":{"id":"00cc908e-5910-4ea8-a60b-f48ea3e9c1d9","role":"admin","profile":{"id":"2740bd22-fefb-4957-8087-a61d97090397","multipleCounters":false,"name":"Nicolas","dni":"99999999R","signature":null,"signaturePointsProvided":false,"email":"nicolas@gmail.com","phone":"+34-254789686","imageUrl":"https://test-kanguro-api-public-assets.s3.amazonaws.com/profile/e87c669c82861016111074c7441243ee8e.jpg"},"courier":null},"maxPinTriesCount":3,"isRecipientMandatoryInReturnFlow":false,"isQrCollect":true},"kanguroPoint":{"id":"0e9d1fbe-19ba-4d58-868b-ff4728327a72","cid":null,"addressComponents":{"postalCode":"08006","province":"Barcelona ","direction":"C/ de Pàdua, 77, Sarrià-Sant Gervasi, ","city":"Spain"},"address":"C/ de Pàdua, 77, Sarrià-Sant Gervasi, , Spain 08006, Barcelona ","longitude":2.145343786908928,"latitude":41.40519413303176,"countryId":"ES","timeZone":"Europe/Madrid","code":"j9Q3zAGY","isPrivate":false,"distance":null,"distanceObject":null,"parcelsCount":null,"deliverParcelsCount":null,"collectParcelsCount":null,"attachments":[{"id":"0846b6c3-3fd2-4578-a717-2f916b6ded8c","type":"type001111","url":"url001111"},{"id":"18b95781-0c05-4cd0-ab23-9f831f16c4af","type":"OTHER","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/9b7105a4eea7f1d561ff6c5c72ef107b82.csv"},{"id":"1cb41322-6cb6-404a-adae-36145c82c790","type":"MAIN","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/69cafb300610e1287d610d3a9c86ac19f7.jpg"},{"id":"20c4586b-23d0-4a0d-9954-598e85b815a8","type":"gallery","url":"url122"},{"id":"24ff98b6-e03b-454a-a948-c0c16dfab8d4","type":"IMAGE","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/fd4a856f10f91cf3dbd744870bbda13f8.png"},{"id":"37ba779d-4766-4294-9363-abb91549bb96","type":"IMAGE","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/49fe6c69f7a4a2ce53879f95d07f6d54.jpg"},{"id":"55e9bc5f-ffe9-4f2d-a61d-19151d1359f9","type":"gallery","url":"url111"},{"id":"a0757f1a-8faf-4e7d-98e7-ad7792bbfb49","type":"type0021111","url":"url002111"}],"counter":{"id":"705f10b8-b754-4a59-be26-2c83261a096c","status":"active","name":"Zudio counter","phone":"+34-455879658","email":"zudio@hf.com","serialNumber":"00000043","upsAccessPointId":null,"schedule":[{"id":"8aaaecf5-496c-40bf-b2f1-bc61294435d3","open":"09:00","close":"12:00","dayOfWeek":0,"interval":0,"isHoliday":false},{"id":"23a5fc07-17e6-483a-820b-d4dd8ccf0e72","open":"13:00","close":"19:00","dayOfWeek":0,"interval":1,"isHoliday":false},{"id":"0c901c05-e6ca-47b3-bb0f-ba437db95afe","open":"10:00","close":"18:00","dayOfWeek":1,"interval":0,"isHoliday":false},{"id":"26d9bf00-9476-4d3f-be7e-243be108f31a","open":"10:00","close":"18:00","dayOfWeek":2,"interval":0,"isHoliday":false},{"id":"74b9b39b-2c41-452f-92f3-561013e3cf2a","open":"10:00","close":"18:00","dayOfWeek":3,"interval":0,"isHoliday":false},{"id":"0226a8a5-b686-46ca-aefa-bfd4e90ddbf1","open":"10:00","close":"18:00","dayOfWeek":4,"interval":0,"isHoliday":false}],"kanguroPoint":null,"profile":{"id":"37c6dc7c-5735-40a7-83a7-02db2c1f8e25","multipleCounters":false,"name":"Javier ","dni":"12345","signature":null,"signaturePointsProvided":false,"email":"javier@kt.com","phone":"+34-455879658","imageUrl":"https://www.kanguro.com/images/logo.png"}},"containsUpsParcels":false},"sender":null,"recipient":{"id":"9ab63823-bfb1-4abb-9cac-22b5db186a46","profile":{"id":"f8c6485d-bf21-4fef-bf72-9e1498177c37","multipleCounters":false,"name":"Helen","dni":"33333333R","signature":"signature/1066cb234387a10483d710b81410f6bb5ee5.jpg","signaturePointsProvided":true,"email":"temp@gmail.com","phone":"+34-636638194","imageUrl":"https://test-kanguro-api-public-assets.s3.amazonaws.com/profile/302c6cfd3d84a5832dd86a531c2106467"},"kanguroPoints":[]},"statusChanges":[]},{"id":"3658a504-4acc-4aab-ae2e-629c3c20f86b","counterId":"705f10b8-b754-4a59-be26-2c83261a096c","originalAddress":"Spain","status":"returning","createdAt":"2024-10-04T07:28:31.731Z","updatedAt":"2024-10-04T07:49:03.000Z","expireTimestamp":null,"EAN":"599089195336","pinRequired":false,"adultSignatureRequired":false,"recipientOnlyRequired":false,"commercialInvoiceRequired":false,"pinTriesCount":0,"attachments":[],"monies":[],"deliveryDriver":{"id":"00cc908e-5910-4ea8-a60b-f48ea3e9c1d9","role":"admin","profile":{"id":"2740bd22-fefb-4957-8087-a61d97090397","multipleCounters":false,"name":"Nicolas","dni":"99999999R","signature":null,"signaturePointsProvided":false,"email":"nicolas@gmail.com","phone":"+34-254789686","imageUrl":"https://test-kanguro-api-public-assets.s3.amazonaws.com/profile/e87c669c82861016111074c7441243ee8e.jpg"},"courier":{"id":"c64c9f66-5c0d-4d09-b3a1-6efea8dc6d21","name":"DHL Courier","logo":"company logo","cif":"1236547","phone":"+34-4569878596","carrierId":null,"carrier":null,"isQrReturn":true,"deliveryDriver":null,"maxPinTriesCount":3,"isRecipientMandatoryInReturnFlow":false,"isQrCollect":true}},"courier":{"id":"c64c9f66-5c0d-4d09-b3a1-6efea8dc6d21","name":"DHL Courier","logo":"company logo","cif":"1236547","phone":"+34-4569878596","carrierId":null,"carrier":null,"isQrReturn":true,"deliveryDriver":{"id":"00cc908e-5910-4ea8-a60b-f48ea3e9c1d9","role":"admin","profile":{"id":"2740bd22-fefb-4957-8087-a61d97090397","multipleCounters":false,"name":"Nicolas","dni":"99999999R","signature":null,"signaturePointsProvided":false,"email":"nicolas@gmail.com","phone":"+34-254789686","imageUrl":"https://test-kanguro-api-public-assets.s3.amazonaws.com/profile/e87c669c82861016111074c7441243ee8e.jpg"},"courier":null},"maxPinTriesCount":3,"isRecipientMandatoryInReturnFlow":false,"isQrCollect":true},"kanguroPoint":{"id":"0e9d1fbe-19ba-4d58-868b-ff4728327a72","cid":null,"addressComponents":{"postalCode":"08006","province":"Barcelona ","direction":"C/ de Pàdua, 77, Sarrià-Sant Gervasi, ","city":"Spain"},"address":"C/ de Pàdua, 77, Sarrià-Sant Gervasi, , Spain 08006, Barcelona ","longitude":2.145343786908928,"latitude":41.40519413303176,"countryId":"ES","timeZone":"Europe/Madrid","code":"j9Q3zAGY","isPrivate":false,"distance":null,"distanceObject":null,"parcelsCount":null,"deliverParcelsCount":null,"collectParcelsCount":null,"attachments":[{"id":"0846b6c3-3fd2-4578-a717-2f916b6ded8c","type":"type001111","url":"url001111"},{"id":"18b95781-0c05-4cd0-ab23-9f831f16c4af","type":"OTHER","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/9b7105a4eea7f1d561ff6c5c72ef107b82.csv"},{"id":"1cb41322-6cb6-404a-adae-36145c82c790","type":"MAIN","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/69cafb300610e1287d610d3a9c86ac19f7.jpg"},{"id":"20c4586b-23d0-4a0d-9954-598e85b815a8","type":"gallery","url":"url122"},{"id":"24ff98b6-e03b-454a-a948-c0c16dfab8d4","type":"IMAGE","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/fd4a856f10f91cf3dbd744870bbda13f8.png"},{"id":"37ba779d-4766-4294-9363-abb91549bb96","type":"IMAGE","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/49fe6c69f7a4a2ce53879f95d07f6d54.jpg"},{"id":"55e9bc5f-ffe9-4f2d-a61d-19151d1359f9","type":"gallery","url":"url111"},{"id":"a0757f1a-8faf-4e7d-98e7-ad7792bbfb49","type":"type0021111","url":"url002111"}],"counter":{"id":"705f10b8-b754-4a59-be26-2c83261a096c","status":"active","name":"Zudio counter","phone":"+34-455879658","email":"zudio@hf.com","serialNumber":"00000043","upsAccessPointId":null,"schedule":[{"id":"8aaaecf5-496c-40bf-b2f1-bc61294435d3","open":"09:00","close":"12:00","dayOfWeek":0,"interval":0,"isHoliday":false},{"id":"23a5fc07-17e6-483a-820b-d4dd8ccf0e72","open":"13:00","close":"19:00","dayOfWeek":0,"interval":1,"isHoliday":false},{"id":"0c901c05-e6ca-47b3-bb0f-ba437db95afe","open":"10:00","close":"18:00","dayOfWeek":1,"interval":0,"isHoliday":false},{"id":"26d9bf00-9476-4d3f-be7e-243be108f31a","open":"10:00","close":"18:00","dayOfWeek":2,"interval":0,"isHoliday":false},{"id":"74b9b39b-2c41-452f-92f3-561013e3cf2a","open":"10:00","close":"18:00","dayOfWeek":3,"interval":0,"isHoliday":false},{"id":"0226a8a5-b686-46ca-aefa-bfd4e90ddbf1","open":"10:00","close":"18:00","dayOfWeek":4,"interval":0,"isHoliday":false}],"kanguroPoint":null,"profile":{"id":"37c6dc7c-5735-40a7-83a7-02db2c1f8e25","multipleCounters":false,"name":"Javier ","dni":"12345","signature":null,"signaturePointsProvided":false,"email":"javier@kt.com","phone":"+34-455879658","imageUrl":"https://www.kanguro.com/images/logo.png"}},"containsUpsParcels":false},"sender":null,"recipient":{"id":"9ab63823-bfb1-4abb-9cac-22b5db186a46","profile":{"id":"f8c6485d-bf21-4fef-bf72-9e1498177c37","multipleCounters":false,"name":"Helen","dni":"33333333R","sign... (set the log level to DEBUG or TRACE to see the full content) 
+ </msg>
+<msg time="2024-10-04T13:38:58.428947" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>${base_URL}${get_by_group_endpoint}${group_id}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a GET request.</doc>
+<status status="PASS" start="2024-10-04T13:38:57.559964" elapsed="0.868983"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-04T13:38:58.432930" level="INFO">Response Body: {"count":2,"items":[{"id":"2958454f-e0da-4a01-b65e-cb751ef5b0d4","counterId":"705f10b8-b754-4a59-be26-2c83261a096c","originalAddress":"Spain","status":"returning","createdAt":"2024-10-04T08:08:50.771Z","updatedAt":"2024-10-04T08:08:55.000Z","expireTimestamp":null,"EAN":"599285723312","pinRequired":false,"adultSignatureRequired":false,"recipientOnlyRequired":false,"commercialInvoiceRequired":false,"pinTriesCount":0,"attachments":[],"monies":[],"deliveryDriver":{"id":"00cc908e-5910-4ea8-a60b-f48ea3e9c1d9","role":"admin","profile":{"id":"2740bd22-fefb-4957-8087-a61d97090397","multipleCounters":false,"name":"Nicolas","dni":"99999999R","signature":null,"signaturePointsProvided":false,"email":"nicolas@gmail.com","phone":"+34-254789686","imageUrl":"https://test-kanguro-api-public-assets.s3.amazonaws.com/profile/e87c669c82861016111074c7441243ee8e.jpg"},"courier":{"id":"c64c9f66-5c0d-4d09-b3a1-6efea8dc6d21","name":"DHL Courier","logo":"company logo","cif":"1236547","phone":"+34-4569878596","carrierId":null,"carrier":null,"isQrReturn":true,"deliveryDriver":null,"maxPinTriesCount":3,"isRecipientMandatoryInReturnFlow":false,"isQrCollect":true}},"courier":{"id":"c64c9f66-5c0d-4d09-b3a1-6efea8dc6d21","name":"DHL Courier","logo":"company logo","cif":"1236547","phone":"+34-4569878596","carrierId":null,"carrier":null,"isQrReturn":true,"deliveryDriver":{"id":"00cc908e-5910-4ea8-a60b-f48ea3e9c1d9","role":"admin","profile":{"id":"2740bd22-fefb-4957-8087-a61d97090397","multipleCounters":false,"name":"Nicolas","dni":"99999999R","signature":null,"signaturePointsProvided":false,"email":"nicolas@gmail.com","phone":"+34-254789686","imageUrl":"https://test-kanguro-api-public-assets.s3.amazonaws.com/profile/e87c669c82861016111074c7441243ee8e.jpg"},"courier":null},"maxPinTriesCount":3,"isRecipientMandatoryInReturnFlow":false,"isQrCollect":true},"kanguroPoint":{"id":"0e9d1fbe-19ba-4d58-868b-ff4728327a72","cid":null,"addressComponents":{"postalCode":"08006","province":"Barcelona ","direction":"C/ de P\xc3\xa0dua, 77, Sarri\xc3\xa0-Sant Gervasi, ","city":"Spain"},"address":"C/ de P\xc3\xa0dua, 77, Sarri\xc3\xa0-Sant Gervasi, , Spain 08006, Barcelona ","longitude":2.145343786908928,"latitude":41.40519413303176,"countryId":"ES","timeZone":"Europe/Madrid","code":"j9Q3zAGY","isPrivate":false,"distance":null,"distanceObject":null,"parcelsCount":null,"deliverParcelsCount":null,"collectParcelsCount":null,"attachments":[{"id":"0846b6c3-3fd2-4578-a717-2f916b6ded8c","type":"type001111","url":"url001111"},{"id":"18b95781-0c05-4cd0-ab23-9f831f16c4af","type":"OTHER","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/9b7105a4eea7f1d561ff6c5c72ef107b82.csv"},{"id":"1cb41322-6cb6-404a-adae-36145c82c790","type":"MAIN","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/69cafb300610e1287d610d3a9c86ac19f7.jpg"},{"id":"20c4586b-23d0-4a0d-9954-598e85b815a8","type":"gallery","url":"url122"},{"id":"24ff98b6-e03b-454a-a948-c0c16dfab8d4","type":"IMAGE","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/fd4a856f10f91cf3dbd744870bbda13f8.png"},{"id":"37ba779d-4766-4294-9363-abb91549bb96","type":"IMAGE","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/49fe6c69f7a4a2ce53879f95d07f6d54.jpg"},{"id":"55e9bc5f-ffe9-4f2d-a61d-19151d1359f9","type":"gallery","url":"url111"},{"id":"a0757f1a-8faf-4e7d-98e7-ad7792bbfb49","type":"type0021111","url":"url002111"}],"counter":{"id":"705f10b8-b754-4a59-be26-2c83261a096c","status":"active","name":"Zudio counter","phone":"+34-455879658","email":"zudio@hf.com","serialNumber":"00000043","upsAccessPointId":null,"schedule":[{"id":"8aaaecf5-496c-40bf-b2f1-bc61294435d3","open":"09:00","close":"12:00","dayOfWeek":0,"interval":0,"isHoliday":false},{"id":"23a5fc07-17e6-483a-820b-d4dd8ccf0e72","open":"13:00","close":"19:00","dayOfWeek":0,"interval":1,"isHoliday":false},{"id":"0c901c05-e6ca-47b3-bb0f-ba437db95afe","open":"10:00","close":"18:00","dayOfWeek":1,"interval":0,"isHoliday":false},{"id":"26d9bf00-9476-4d3f-be7e-243be108f31a","open":"10:00","close":"18:00","dayOfWeek":2,"interval":0,"isHoliday":false},{"id":"74b9b39b-2c41-452f-92f3-561013e3cf2a","open":"10:00","close":"18:00","dayOfWeek":3,"interval":0,"isHoliday":false},{"id":"0226a8a5-b686-46ca-aefa-bfd4e90ddbf1","open":"10:00","close":"18:00","dayOfWeek":4,"interval":0,"isHoliday":false}],"kanguroPoint":null,"profile":{"id":"37c6dc7c-5735-40a7-83a7-02db2c1f8e25","multipleCounters":false,"name":"Javier ","dni":"12345","signature":null,"signaturePointsProvided":false,"email":"javier@kt.com","phone":"+34-455879658","imageUrl":"https://www.kanguro.com/images/logo.png"}},"containsUpsParcels":false},"sender":null,"recipient":{"id":"9ab63823-bfb1-4abb-9cac-22b5db186a46","profile":{"id":"f8c6485d-bf21-4fef-bf72-9e1498177c37","multipleCounters":false,"name":"Helen","dni":"33333333R","signature":"signature/1066cb234387a10483d710b81410f6bb5ee5.jpg","signaturePointsProvided":true,"email":"temp@gmail.com","phone":"+34-636638194","imageUrl":"https://test-kanguro-api-public-assets.s3.amazonaws.com/profile/302c6cfd3d84a5832dd86a531c2106467"},"kanguroPoints":[]},"statusChanges":[]},{"id":"3658a504-4acc-4aab-ae2e-629c3c20f86b","counterId":"705f10b8-b754-4a59-be26-2c83261a096c","originalAddress":"Spain","status":"returning","createdAt":"2024-10-04T07:28:31.731Z","updatedAt":"2024-10-04T07:49:03.000Z","expireTimestamp":null,"EAN":"599089195336","pinRequired":false,"adultSignatureRequired":false,"recipientOnlyRequired":false,"commercialInvoiceRequired":false,"pinTriesCount":0,"attachments":[],"monies":[],"deliveryDriver":{"id":"00cc908e-5910-4ea8-a60b-f48ea3e9c1d9","role":"admin","profile":{"id":"2740bd22-fefb-4957-8087-a61d97090397","multipleCounters":false,"name":"Nicolas","dni":"99999999R","signature":null,"signaturePointsProvided":false,"email":"nicolas@gmail.com","phone":"+34-254789686","imageUrl":"https://test-kanguro-api-public-assets.s3.amazonaws.com/profile/e87c669c82861016111074c7441243ee8e.jpg"},"courier":{"id":"c64c9f66-5c0d-4d09-b3a1-6efea8dc6d21","name":"DHL Courier","logo":"company logo","cif":"1236547","phone":"+34-4569878596","carrierId":null,"carrier":null,"isQrReturn":true,"deliveryDriver":null,"maxPinTriesCount":3,"isRecipientMandatoryInReturnFlow":false,"isQrCollect":true}},"courier":{"id":"c64c9f66-5c0d-4d09-b3a1-6efea8dc6d21","name":"DHL Courier","logo":"company logo","cif":"1236547","phone":"+34-4569878596","carrierId":null,"carrier":null,"isQrReturn":true,"deliveryDriver":{"id":"00cc908e-5910-4ea8-a60b-f48ea3e9c1d9","role":"admin","profile":{"id":"2740bd22-fefb-4957-8087-a61d97090397","multipleCounters":false,"name":"Nicolas","dni":"99999999R","signature":null,"signaturePointsProvided":false,"email":"nicolas@gmail.com","phone":"+34-254789686","imageUrl":"https://test-kanguro-api-public-assets.s3.amazonaws.com/profile/e87c669c82861016111074c7441243ee8e.jpg"},"courier":null},"maxPinTriesCount":3,"isRecipientMandatoryInReturnFlow":false,"isQrCollect":true},"kanguroPoint":{"id":"0e9d1fbe-19ba-4d58-868b-ff4728327a72","cid":null,"addressComponents":{"postalCode":"08006","province":"Barcelona ","direction":"C/ de P\xc3\xa0dua, 77, Sarri\xc3\xa0-Sant Gervasi, ","city":"Spain"},"address":"C/ de P\xc3\xa0dua, 77, Sarri\xc3\xa0-Sant Gervasi, , Spain 08006, Barcelona ","longitude":2.145343786908928,"latitude":41.40519413303176,"countryId":"ES","timeZone":"Europe/Madrid","code":"j9Q3zAGY","isPrivate":false,"distance":null,"distanceObject":null,"parcelsCount":null,"deliverParcelsCount":null,"collectParcelsCount":null,"attachments":[{"id":"0846b6c3-3fd2-4578-a717-2f916b6ded8c","type":"type001111","url":"url001111"},{"id":"18b95781-0c05-4cd0-ab23-9f831f16c4af","type":"OTHER","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/9b7105a4eea7f1d561ff6c5c72ef107b82.csv"},{"id":"1cb41322-6cb6-404a-adae-36145c82c790","type":"MAIN","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/69cafb300610e1287d610d3a9c86ac19f7.jpg"},{"id":"20c4586b-23d0-4a0d-9954-598e85b815a8","type":"gallery","url":"url122"},{"id":"24ff98b6-e03b-454a-a948-c0c16dfab8d4","type":"IMAGE","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/fd4a856f10f91cf3dbd744870bbda13f8.png"},{"id":"37ba779d-4766-4294-9363-abb91549bb96","type":"IMAGE","url":"https://test-kanguro-api-public-assets.s3.amazonaws.com/kanguroPoint/49fe6c69f7a4a2ce53879f95d07f6d54.jpg"},{"id":"55e9bc5f-ffe9-4f2d-a61d-19151d1359f9","type":"gallery","url":"url111"},{"id":"a0757f1a-8faf-4e7d-98e7-ad7792bbfb49","type":"type0021111","url":"url002111"}],"counter":{"id":"705f10b8-b754-4a59-be26-2c83261a096c","status":"active","name":"Zudio counter","phone":"+34-455879658","email":"zudio@hf.com","serialNumber":"00000043","upsAccessPointId":null,"schedule":[{"id":"8aaaecf5-496c-40bf-b2f1-bc61294435d3","open":"09:00","close":"12:00","dayOfWeek":0,"interval":0,"isHoliday":false},{"id":"23a5fc07-17e6-483a-820b-d4dd8ccf0e72","open":"13:00","close":"19:00","dayOfWeek":0,"interval":1,"isHoliday":false},{"id":"0c901c05-e6ca-47b3-bb0f-ba437db95afe","open":"10:00","close":"18:00","dayOfWeek":1,"interval":0,"isHoliday":false},{"id":"26d9bf00-9476-4d3f-be7e-243be108f31a","open":"10:00","close":"18:00","dayOfWeek":2,"interval":0,"isHoliday":false},{"id":"74b9b39b-2c41-452f-92f3-561013e3cf2a","open":"10:00","close":"18:00","dayOfWeek":3,"interval":0,"isHoliday":false},{"id":"0226a8a5-b686-46ca-aefa-bfd4e90ddbf1","open":"10:00","close":"18:00","dayOfWeek":4,"interval":0,"isHoliday":false}],"kanguroPoint":null,"profile":{"id":"37c6dc7c-5735-40a7-83a7-02db2c1f8e25","multipleCounters":false,"name":"Javier ","dni":"12345","signature":null,"signaturePointsProvided":false,"email":"javier@kt.com","phone":"+34-455879658","imageUrl":"https://www.kanguro.com/images/logo.png"}},"containsUpsParcels":false},"sender":null,"recipient":{"id":"9ab63823-bfb1-4abb-9cac-22b5db186a46","profile":{"id":"f8c6485d-bf21-4fef-bf72-9e1498177c37","multipleCounters":false,"name":"Helen","dni":"33333333R","signature":"signature/1066cb234387a10483d710b81410f6bb5ee5.jpg","signaturePointsProvided":true,"email":"temp@gmail.com","phone":"+34-636638194","imageUrl":"https://test-kanguro-api-public-assets.s3.amazonaws.com/profile/302c6cfd3d84a5832dd86a531c2106467"},"kanguroPoints":[]},"statusChanges":[]}]}</msg>
+<arg>Response Body: ${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-04T13:38:58.429950" elapsed="0.002980"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2024-10-04T13:38:58.434924" level="INFO">${response_json} = {'count': 2, 'items': [{'id': '2958454f-e0da-4a01-b65e-cb751ef5b0d4', 'counterId': '705f10b8-b754-4a59-be26-2c83261a096c', 'originalAddress': 'Spain', 'status': 'returning', 'createdAt': '2024-10-04T0...</msg>
+<var>${response_json}</var>
+<arg>json.loads('''${response.content}''')</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2024-10-04T13:38:58.432930" elapsed="0.001994"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2024-10-04T13:38:58.435895" level="INFO">${parcel_id} = 2958454f-e0da-4a01-b65e-cb751ef5b0d4</msg>
+<var>${parcel_id}</var>
+<arg>${response_json['items'][0]['id']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2024-10-04T13:38:58.434924" elapsed="0.000971"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-04T13:38:58.435895" level="INFO">Parcel ID: 2958454f-e0da-4a01-b65e-cb751ef5b0d4</msg>
+<arg>Parcel ID: ${parcel_id}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-04T13:38:58.435895" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${parcel_id}</value>
+<status status="PASS" start="2024-10-04T13:38:58.436892" elapsed="0.000000"/>
+</return>
+<arg>${counter_token}</arg>
+<arg>${group_id}</arg>
+<status status="PASS" start="2024-10-04T13:38:57.559964" elapsed="0.876928"/>
+</kw>
+<kw name="Validating the return parcel and changing the status to returned" owner="recipient">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-10-04T13:38:58.436892" level="INFO">${headers} = {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC00NTU4Nzk2NTgiLCJzdWIiOiI3MDVmMTBiOC1iNzU0LTRhNTktYmUyNi0yYzgzMjYxYTA5NmMiLCJyb...</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=${counter_token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-10-04T13:38:58.436892" elapsed="0.000000"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-10-04T13:38:58.437916" level="INFO">${data} = {'action': 'deliver-to-delivery-driver', 'valid': 'True', 'pin': '123456', 'attachments': '[]', 'monies': '[]', 'adultSignatureRequired': 'True', 'recipientOnlyRequired': 'True', 'commercialInvoiceReq...</msg>
+<var>${data}</var>
+<arg>action=${action_return_driver}</arg>
+<arg>valid=${valid}</arg>
+<arg>pin=${pin}</arg>
+<arg>attachments=${attachments}</arg>
+<arg>monies=${monies}</arg>
+<arg>adultSignatureRequired=${adultSignatureRequired}</arg>
+<arg>recipientOnlyRequired=${recipientOnlyRequired}</arg>
+<arg>commercialInvoiceRequired=${commercialInvoiceRequired}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-10-04T13:38:58.437916" elapsed="0.000000"/>
+</kw>
+<kw name="PATCH" owner="RequestsLibrary">
+<msg time="2024-10-04T13:38:59.210736" level="INFO">PATCH Request : url=https://api.test.kanguro.com/api/v1/counter/parcels/2958454f-e0da-4a01-b65e-cb751ef5b0d4 
+ path_url=/api/v1/counter/parcels/2958454f-e0da-4a01-b65e-cb751ef5b0d4 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IiszNC00NTU4Nzk2NTgiLCJzdWIiOiI3MDVmMTBiOC1iNzU0LTRhNTktYmUyNi0yYzgzMjYxYTA5NmMiLCJyb2xlIjoiYWRtaW4iLCJlbXBsb3llZUlkIjpudWxsLCJ1c2VySWQiOiIzN2M2ZGM3Yy01NzM1LTQwYTctODNhNy0wMmRiMmMxZjhlMjUiLCJpYXQiOjE3MjgwMjkzMzIsImV4cCI6MTcyODExNTczMn0.i4ZWTLpeemi7492PWgdU24Aow9yEIrXDyuAABq54IX0', 'Content-Length': '216'} 
+ body=b'{"action": "deliver-to-delivery-driver", "valid": "True", "pin": "123456", "attachments": "[]", "monies": "[]", "adultSignatureRequired": "True", "recipientOnlyRequired": "True", "commercialInvoiceRequired": "False"}' 
+ </msg>
+<msg time="2024-10-04T13:38:59.211734" level="INFO">PATCH Response : url=https://api.test.kanguro.com/api/v1/counter/parcels/2958454f-e0da-4a01-b65e-cb751ef5b0d4 
+ status=204, reason=No Content 
+ headers={'Date': 'Fri, 04 Oct 2024 08:08:57 GMT', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*'} 
+ body=None 
+ </msg>
+<msg time="2024-10-04T13:38:59.211734" level="INFO">${response} = &lt;Response [204]&gt;</msg>
+<var>${response}</var>
+<arg>${base_URL}${Validate_parcel_endpoint}${parcel_id}</arg>
+<arg>headers=${headers}</arg>
+<arg>json=${data}</arg>
+<doc>Sends a PUT request.</doc>
+<status status="PASS" start="2024-10-04T13:38:58.437916" elapsed="0.773818"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-10-04T13:38:59.214694" level="INFO">Response Body: </msg>
+<arg>Response Body: ${response.content}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-10-04T13:38:59.212703" elapsed="0.001991"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<msg time="2024-10-04T13:38:59.215689" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>204</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2024-10-04T13:38:59.214694" elapsed="0.000995"/>
+</kw>
+<arg>${counter_token}</arg>
+<arg>${parcel_id}</arg>
+<status status="PASS" start="2024-10-04T13:38:58.436892" elapsed="0.778797"/>
+</kw>
+<tag>return</tag>
+<status status="PASS" start="2024-10-04T13:38:49.813892" elapsed="9.401797"/>
+</test>
+<status status="PASS" start="2024-10-04T13:38:49.412485" elapsed="9.804201"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="0" skip="0">return</stat>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Return Flow">Return Flow</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
